@@ -1,8 +1,13 @@
 import ReactDOM from "react-dom";
-import App from "./app";
+import App from "./App";
+import Admin from "./Admin";
 
 let elem;
 
-elem = <App />;
+if (location.pathname === "/admin") {
+    elem = <Admin />;
+} else {
+    elem = <App />;
+}
 
 ReactDOM.render(elem, document.querySelector("main"));

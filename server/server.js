@@ -8,6 +8,7 @@ const { hash, compare } = require("./bc");
 const csurf = require("csurf");
 const cryptoRandomString = require("crypto-random-string");
 const { sendEmail } = require("./ses");
+const db = require("./db");
 const multer = require("multer");
 const config = require("./config.json");
 const uidSafe = require("uid-safe");
@@ -48,6 +49,40 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
 
 /////////////////////////////////Server Routes/////////////////////////////////
+app.post("/product", (req, res) => {
+    console.log(req.body);
+    console.log(
+        req.body.productName,
+        req.body.productPrice,
+        req.body.productDescription
+    );
+    // db.addNewProduct(req.body.productName, req.body.productPrice, req.body.productDescription)
+    //     .then(({ rows }) => {
+    //         res.json(rows[0]);
+    //     })
+    //     .catch((err) => {
+    //         console.log("error in updateBio", err);
+    //         res.sendStatus(400);
+    //     });
+});
+
+app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
+    if (req.file) {
+        const url = config.s3Url + req.file.filename;
+        let id = req.session.userId;
+
+        //     db.uploadProductPic(url, id)
+        //         .then(({ rows }) => {
+        //             console.log(rows);
+        //             res.json(rows);
+        //         })
+        //         .catch((err) => {
+        //             console.log(err);
+        //         });
+        // } else {
+        //     res.json({ success: false });
+    }
+});
 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));

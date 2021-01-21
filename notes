@@ -1,0 +1,52 @@
+Client:
+
+React-Components:
+
+app.js ---
+----------
+        navigationbar
+        ------->navbar
+        ------->shopping card (id)
+        ------->logout/registration/login
+----------
+        header
+        ------>carousel(product-picture, name, id) //axios.get("product-infos")
+----------
+        main
+        ------>Metahead (productsObj.length, id) //axios.get("product-infos")
+        ------>ProductThumbnail (product-picture, price, name, id) //axios.get("product-infos")
+----------
+        footer
+
+
+
+adminConsole.js ---
+--------form
+        -------->input picture (send to AWS S3 bucket)
+        --------> Form Data (to PRODUCTS table: price, name, description, primary-color)
+
+
+
+
+
+
+productsObj{
+    [
+        {
+        id: 1,
+        productName: "productname",
+        productPicture: "www.aws.com/u898u234ksdfh",
+        price: "19,99"
+        },
+        {
+        id: 2,
+        productName: "productname",
+        productPicture: "www.aws.com/u898u234ksdfh",
+        price: "19,99"
+        }
+    ]
+        
+
+    
+
+}
