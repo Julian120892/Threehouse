@@ -4,8 +4,8 @@ const db = spicedPg(
 );
 //("WhoAreWeTalkingTo:WichDBuserWillRunCommands:TheUserPassword@WhichPort/nameOfDatabase")
 
-module.exports.newProduct = (name, price, description) => {
-    const q = `INSERT INTO users (name, price, description)
+module.exports.addNewProduct = (name, price, description) => {
+    const q = `INSERT INTO products (product_name, product_price, product_description)
     VALUES ($1, $2, $3)
     RETURNING id `;
     const params = [name, price, description];
@@ -13,10 +13,10 @@ module.exports.newProduct = (name, price, description) => {
 };
 
 module.exports.uploadProductPic = (product_id, url) => {
-    console.log("server upload of picture");
+    console.log("server upload of picture", url, product_id);
     const q = ` 
-        UPDATE product 
-        SET picture = $2
+        UPDATE products 
+        SET product_picture = $2
         WHERE id = $1
         ;
     `;

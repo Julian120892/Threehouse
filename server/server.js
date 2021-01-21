@@ -49,40 +49,48 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
 
 /////////////////////////////////Server Routes/////////////////////////////////
+
+/////////////////////////////////Admin Console/////////////////////////////////
+
 app.post("/product", (req, res) => {
-    console.log(req.body);
     console.log(
         req.body.productName,
         req.body.productPrice,
         req.body.productDescription
     );
-    // db.addNewProduct(req.body.productName, req.body.productPrice, req.body.productDescription)
-    //     .then(({ rows }) => {
-    //         res.json(rows[0]);
-    //     })
-    //     .catch((err) => {
-    //         console.log("error in updateBio", err);
-    //         res.sendStatus(400);
-    //     });
+    db.addNewProduct(
+        req.body.productName,
+        req.body.productPrice,
+        req.body.productDescription
+    )
+        .then(({ rows }) => {
+            req.session.productId = rows[0].id;
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("error in updateBio", err);
+            res.sendStatus(400);
+        });
 });
 
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     if (req.file) {
         const url = config.s3Url + req.file.filename;
-        let id = req.session.userId;
+        let id = req.session.productId;
 
-        //     db.uploadProductPic(url, id)
-        //         .then(({ rows }) => {
-        //             console.log(rows);
-        //             res.json(rows);
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //         });
-        // } else {
-        //     res.json({ success: false });
+        db.uploadProductPic(id, url)
+            .then(({ rows }) => {
+                res.json(rows);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } else {
+        res.json({ success: false });
     }
 });
+
+/////////////////////////////////////////////////
 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
