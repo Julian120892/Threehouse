@@ -23,3 +23,8 @@ module.exports.uploadProductPic = (product_id, url) => {
     const params = [product_id, url];
     return db.query(q, params);
 };
+
+module.exports.getProducts = () => {
+    const q = `SELECT * FROM products;`;
+    return db.query(q);
+};

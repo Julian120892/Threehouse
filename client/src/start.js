@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom";
 import App from "./App";
-import Admin from "./Admin";
+import AdminConsole from "./AdminConsole";
 
 let elem;
 
 if (location.pathname === "/admin") {
-    elem = <Admin />;
+    elem = <AdminConsole />;
 } else {
     elem = <App />;
 }

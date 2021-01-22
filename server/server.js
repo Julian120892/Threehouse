@@ -51,6 +51,16 @@ app.use(express.json());
 /////////////////////////////////Server Routes/////////////////////////////////
 
 /////////////////////////////////Admin Console/////////////////////////////////
+app.get("/product-list", (req, res) => {
+    db.getProducts()
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in getProducts", err);
+            res.sendStatus(400);
+        });
+});
 
 app.post("/product", (req, res) => {
     console.log(
@@ -68,7 +78,7 @@ app.post("/product", (req, res) => {
             res.json(rows[0]);
         })
         .catch((err) => {
-            console.log("error in updateBio", err);
+            console.log("error in addNewProduct", err);
             res.sendStatus(400);
         });
 });
@@ -83,7 +93,7 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
                 res.json(rows);
             })
             .catch((err) => {
-                console.log(err);
+                console.log("error in uploader", err);
             });
     } else {
         res.json({ success: false });

@@ -1,7 +1,5 @@
 import { Component } from "react";
 import axios from "./axios";
-import { BrowserRouter, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export default class Admin extends Component {
     constructor() {
@@ -12,7 +10,7 @@ export default class Admin extends Component {
     }
 
     componentDidMount() {
-        console.log("Admin.js mounted");
+        console.log("Admin.js mounted", this.state);
     }
 
     handleChange(e) {
@@ -37,6 +35,7 @@ export default class Admin extends Component {
                     this.setState({
                         error: false,
                     });
+                    //update state in ProductEditor
                 });
             })
             .catch((err) => {
