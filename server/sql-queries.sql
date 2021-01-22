@@ -15,3 +15,5 @@ CREATE TABLE products (
         SET product_picture = 'https://julianbucketthreehouse.s3.eu-central-1.amazonaws.com/CoiF5im01z0T3yKEd4-Pvh6P916La1jN.png'
         WHERE id = 6
         ;
+
+

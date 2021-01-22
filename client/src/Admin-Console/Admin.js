@@ -1,9 +1,18 @@
 import { Component } from "react";
-import axios from "./axios";
+import axios from "../axios";
+import styled from "styled-components";
+
+const Container = styled.div`
+    background: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 25px;
+`;
 
 export default class Admin extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             error: false,
         };
@@ -13,15 +22,17 @@ export default class Admin extends Component {
         console.log("Admin.js mounted", this.state);
     }
 
+    componentDidUpdate() {
+        console.log("component updated");
+    }
+
     handleChange(e) {
-        console.log(e.target.value);
         this.setState({
             [e.target.name]: e.target.value,
         });
     }
 
     handleClick() {
-        console.log(this.state);
         let formData = new FormData();
         formData.append("image", this.state.undefined);
         this.add = null;
@@ -30,12 +41,12 @@ export default class Admin extends Component {
         axios
             .post("/product", this.state)
             .then(() => {
+                console.log(this.state);
                 axios.post("/upload", formData).then(() => {
-                    console.log("logged in");
+                    console.log("added product");
                     this.setState({
                         error: false,
                     });
-                    //update state in ProductEditor
                 });
             })
             .catch((err) => {
@@ -55,7 +66,7 @@ export default class Admin extends Component {
 
     render() {
         return (
-            <>
+            <Container>
                 <h1>Admin-Console</h1>
                 <input
                     onChange={(e) => this.handleChange(e)}
@@ -96,7 +107,7 @@ export default class Admin extends Component {
                     <span>Something went wrong, please try again.</span>
                 )}
                 <button onClick={() => this.handleClick()}>submit</button>
-            </>
+            </Container>
         );
     }
 }

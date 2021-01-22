@@ -49,6 +49,22 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
 
 /////////////////////////////////Server Routes/////////////////////////////////
+app.get("/getShoppingCartItems", (req, res) => {
+    console.log("request for shoopigcart", req.query.productsInShoppngCart);
+
+    let newArr = req.query.productsInShoppngCart.split(",");
+    console.log(newArr);
+
+    db.getSpecificProducts(newArr)
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in getShoppingCartItems", err);
+            res.sendStatus(500);
+        });
+});
 
 /////////////////////////////////Admin Console/////////////////////////////////
 app.get("/product-list", (req, res) => {
@@ -58,16 +74,11 @@ app.get("/product-list", (req, res) => {
         })
         .catch((err) => {
             console.log("error in getProducts", err);
-            res.sendStatus(400);
+            res.sendStatus(500);
         });
 });
 
 app.post("/product", (req, res) => {
-    console.log(
-        req.body.productName,
-        req.body.productPrice,
-        req.body.productDescription
-    );
     db.addNewProduct(
         req.body.productName,
         req.body.productPrice,
@@ -79,7 +90,7 @@ app.post("/product", (req, res) => {
         })
         .catch((err) => {
             console.log("error in addNewProduct", err);
-            res.sendStatus(400);
+            res.sendStatus(500);
         });
 });
 
@@ -94,10 +105,40 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
             })
             .catch((err) => {
                 console.log("error in uploader", err);
+                res.sendStatus(500);
             });
     } else {
         res.json({ success: false });
     }
+});
+
+app.post("/product/edit", (req, res) => {
+    db.updateProduct(
+        req.body.updateObj.updateName,
+        req.body.updateObj.updatePrice,
+        req.body.updateObj.updateDescription,
+        req.body.updateObj.id
+    )
+        .then(() => {
+            console.log("succes");
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in uploader", err);
+            res.sendStatus(500);
+        });
+});
+
+app.post("/product/delete", (req, res) => {
+    console.log(req.body);
+    db.deleteProduct(req.body.id)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in uploader", err);
+            res.sendStatus(500);
+        });
 });
 
 /////////////////////////////////////////////////

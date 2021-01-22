@@ -28,3 +28,34 @@ module.exports.getProducts = () => {
     const q = `SELECT * FROM products;`;
     return db.query(q);
 };
+
+module.exports.updateProduct = (name, price, description, id) => {
+    const q = ` 
+        UPDATE products 
+        SET product_name = $1, product_price = $2, product_description = $3
+        WHERE id = $4
+        ;
+    `;
+    const params = [name, price, description, id];
+    return db.query(q, params);
+};
+
+module.exports.deleteProduct = (id) => {
+    const q = ` 
+        DELETE FROM products 
+        WHERE id = $1
+        ;
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+
+// module.exports.getSpecificProducts = (arrayOfIds) => {
+//     const q = `
+// SELECT * FROM products WHERE id IN ('.implode(",", $1).');
+//     `;
+//     const params = [arrayOfIds];
+//     return db.query(q, params);
+// };
+//
+//query ist noch falsch!!!!!!!!!!!!!!!!
