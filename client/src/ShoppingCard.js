@@ -4,11 +4,12 @@ import axios from "./axios";
 export default class ShoppingCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            shoppingCardItems: [],
+        };
     }
 
     componentDidMount() {
-        console.log("shoppingCard mounted", this.props.shoppingCardItems);
         this.getProducts();
     }
 
@@ -17,16 +18,23 @@ export default class ShoppingCard extends Component {
     }
 
     getProducts() {
-        console.log("getting items");
-        console.log("getProducts: ", localStorage.getItem("items"));
-        let productsInShoppngCart = localStorage.getItem("items");
-        console.log("items in local storage ", productsInShoppngCart);
+        let productInShoppngCart = localStorage.getItem("items").split(",");
+        console.log("items in local storage ", productInShoppngCart);
 
-        axios
-            .get("/getShoppingCartItems", { params: { productsInShoppngCart } })
-            .then((res) => {
-                console.log(res);
-            });
+        let arrOfProducts = [];
+
+        for (let i = 0; i < productInShoppngCart.length; i++) {
+            let value = productInShoppngCart[i];
+            axios
+                .get("/getShoppingCartItems", { params: { value: value } })
+                .then((res) => {
+                    console.log(res.data[0]);
+                    arrOfProducts.push(res.data[0]);
+                });
+        }
+        console.log("arrOfProducts in Shoppingcard: ", arrOfProducts);
+        this.shoppingCardItems.push(arrOfProducts);
+        console.log("state in ShoppingCart", this.state);
     }
 
     render() {

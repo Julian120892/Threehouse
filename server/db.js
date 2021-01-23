@@ -50,12 +50,12 @@ module.exports.deleteProduct = (id) => {
     return db.query(q, params);
 };
 
-// module.exports.getSpecificProducts = (arrayOfIds) => {
-//     const q = `
-// SELECT * FROM products WHERE id IN ('.implode(",", $1).');
-//     `;
-//     const params = [arrayOfIds];
-//     return db.query(q, params);
-// };
+module.exports.getSpecificProduct = (product) => {
+    const q = `
+SELECT * FROM products WHERE id = $1;
+    `;
+    const params = [product];
+    return db.query(q, params);
+};
 //
 //query ist noch falsch!!!!!!!!!!!!!!!!

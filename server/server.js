@@ -50,14 +50,12 @@ app.use(express.json());
 
 /////////////////////////////////Server Routes/////////////////////////////////
 app.get("/getShoppingCartItems", (req, res) => {
-    console.log("request for shoopigcart", req.query.productsInShoppngCart);
+    console.log("request for shoopigcart", req.query.value);
 
-    let newArr = req.query.productsInShoppngCart.split(",");
-    console.log(newArr);
+    let arrOfProducts = [];
 
-    db.getSpecificProducts(newArr)
+    db.getSpecificProduct(req.query.value)
         .then(({ rows }) => {
-            console.log(rows);
             res.json(rows);
         })
         .catch((err) => {
