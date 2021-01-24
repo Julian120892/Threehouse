@@ -38,3 +38,25 @@ module.exports.upload = (req, res, next) => {
             res.sendStatus(500);
         });
 };
+
+module.exports.delete = (req, res, next) => {
+    const imgAdress = req.body.params.url;
+    const file = imgAdress.substring(imgAdress.length - 36, imgAdress.length);
+    console.log(imgAdress);
+    console.log(file);
+    const delObj = s3
+        .deleteObject({
+            Bucket: "julianbucketthreehouse",
+            Key: file,
+        })
+        .promise();
+    delObj
+        .then(() => {
+            console.log("Product deleted");
+            next();
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+};

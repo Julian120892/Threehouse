@@ -38,25 +38,11 @@ export default class ProductEditor extends Component {
 
     componentDidMount() {
         console.log("producteditor.js mounted", this.props);
-        this.getProducts();
-    }
-
-    getProducts() {
-        axios.get("/product-list").then((res) => {
-            let productsArray = [];
-
-            for (let i = 0; i < res.data.length; i++) {
-                productsArray.push(res.data[i]);
-            }
-
-            this.setState({
-                product: productsArray,
-            });
-        });
+        this.props.updateProductList();
     }
 
     componentDidUpdate() {
-        console.log("component updated");
+        console.log("component updated", this.props);
     }
 
     handleClick() {
@@ -70,19 +56,19 @@ export default class ProductEditor extends Component {
         let description;
 
         if (this.state.updateName == null) {
-            name = this.state.product[[this.state.updateValues.updateId]]
+            name = this.props.product[[this.state.updateValues.updateId]]
                 .product_name;
         } else {
             name = this.state.updateName;
         }
         if (this.state.updatePrice == null) {
-            price = this.state.product[[this.state.updateValues.updateId]]
+            price = this.props.product[[this.state.updateValues.updateId]]
                 .product_price;
         } else {
             price = this.state.updatePrice;
         }
         if (this.state.updateDescription == null) {
-            description = this.state.product[[this.state.updateValues.updateId]]
+            description = this.props.product[[this.state.updateValues.updateId]]
                 .product_description;
         } else {
             description = this.state.updateDescription;
@@ -92,7 +78,7 @@ export default class ProductEditor extends Component {
             updateName: name,
             updatePrice: price,
             updateDescription: description,
-            id: this.state.product[this.state.updateValues.updateId].id,
+            id: this.props.product[this.state.updateValues.updateId].id,
         };
 
         axios
@@ -116,7 +102,7 @@ export default class ProductEditor extends Component {
                     error: true,
                 });
             });
-        this.getProducts();
+        this.props.updateProductList();
         this.closeUploader();
     }
 
@@ -153,10 +139,12 @@ export default class ProductEditor extends Component {
     }
 
     deleteProduct() {
-        let id = this.state.product[this.state.updateValues.updateId].id;
-        axios.post("/product/delete", { id }).then(() => {
+        let id = this.props.product[this.state.updateValues.updateId].id;
+        let url = this.props.product[this.state.updateValues.updateId]
+            .product_picture;
+        axios.post("/product/delete", { params: { id, url } }).then(() => {
             console.log("product deleted with id: ", id);
-            this.getProducts();
+            this.props.updateProductList();
             this.closeUploader();
         });
     }
@@ -180,7 +168,7 @@ export default class ProductEditor extends Component {
                             <h5>
                                 Product_Id:
                                 {
-                                    this.state.product[
+                                    this.props.product[
                                         this.state.updateValues.updateId
                                     ].id
                                 }
@@ -193,7 +181,7 @@ export default class ProductEditor extends Component {
                                 name="updateName"
                                 type="text"
                                 placeholder={
-                                    this.state.product[
+                                    this.props.product[
                                         [this.state.updateValues.updateId]
                                     ].product_name
                                 }
@@ -205,7 +193,7 @@ export default class ProductEditor extends Component {
                                 name="updatePrice"
                                 type="number"
                                 placeholder={
-                                    this.state.product[
+                                    this.props.product[
                                         [this.state.updateValues.updateId]
                                     ].product_price
                                 }
@@ -218,12 +206,30 @@ export default class ProductEditor extends Component {
                                 name="updateDescription"
                                 type="text"
                                 placeholder={
-                                    this.state.product[
+                                    this.props.product[
                                         [this.state.updateValues.updateId]
                                     ].product_description
                                 }
                                 required
                             />
+                            <br />
+
+                            <a
+                                src={
+                                    this.props.product[
+                                        [this.state.updateValues.updateId]
+                                    ].product_picture
+                                }
+                            >
+                                current Picture Url:
+                                <br />
+                                {
+                                    this.props.product[
+                                        [this.state.updateValues.updateId]
+                                    ].product_picture
+                                }
+                            </a>
+                            <br />
                             <br />
 
                             <input
@@ -248,7 +254,7 @@ export default class ProductEditor extends Component {
                 )}
                 <h1>Products</h1>
                 <OuterContainer>
-                    {this.state.product.map((d, index) => (
+                    {this.props.product.map((d, index) => (
                         <Item key={index}>
                             <h1>{d.product_name}</h1>
                             <h2>{d.product_price}</h2>

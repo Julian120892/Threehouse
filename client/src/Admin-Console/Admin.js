@@ -48,6 +48,7 @@ export default class Admin extends Component {
                         error: false,
                     });
                 });
+                this.props.updateProductList();
             })
             .catch((err) => {
                 console.log(err);

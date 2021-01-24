@@ -11,9 +11,17 @@ CREATE TABLE products (
 
 
 
-        UPDATE products 
-        SET product_picture = 'https://julianbucketthreehouse.s3.eu-central-1.amazonaws.com/CoiF5im01z0T3yKEd4-Pvh6P916La1jN.png'
-        WHERE id = 6
-        ;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+    id SERIAL primary key,
+    first VARCHAR(255) NOT NULL,
+    last VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    city VARCHAR(255),
+    zip VARCHAR(255),
+    adress VARCHAR(255)
+);
 
 

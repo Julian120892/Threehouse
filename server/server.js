@@ -52,8 +52,6 @@ app.use(express.json());
 app.get("/getShoppingCartItems", (req, res) => {
     console.log("request for shoopigcart", req.query.value);
 
-    let arrOfProducts = [];
-
     db.getSpecificProduct(req.query.value)
         .then(({ rows }) => {
             res.json(rows);
@@ -61,6 +59,69 @@ app.get("/getShoppingCartItems", (req, res) => {
         .catch((err) => {
             console.log("error in getShoppingCartItems", err);
             res.sendStatus(500);
+        });
+});
+
+/////////////////////LOGIN AND REGISTRATION///////////////////////////////
+
+app.get("/userLoggedIn", (req, res) => {
+    console.log("request for login data");
+    console.log(req.session.userId);
+    if (!req.session.userId) {
+        console.log("user is not logged in");
+        res.json({ loggedin: false });
+    } else if (req.session.userId) {
+        console.log("user is logged in");
+        res.json({ loggedin: true });
+    }
+});
+
+app.post("/logout", (req, res) => {
+    req.session.userId = null;
+    res.json({
+        success: true,
+    });
+});
+
+app.post("/registration", (req, res) => {
+    const { first, last, email, password } = req.body;
+
+    hash(password)
+        .then((hash) => {
+            db.newUser(first, last, email, hash)
+                .then(({ rows }) => {
+                    req.session.userId = rows[0].id;
+                    res.redirect("/");
+                })
+                .catch((err) => {
+                    console.log("error in db.register", err);
+                    res.sendStatus(300);
+                });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(300);
+        });
+});
+
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    db.loginIn(email)
+        .then(({ rows }) => {
+            compare(password, rows[0].password).then((result) => {
+                if (result) {
+                    console.log("true");
+                    req.session.userId = rows[0].id;
+                    res.redirect("/");
+                } else {
+                    res.sendStatus(404);
+                }
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(300);
         });
 });
 
@@ -127,9 +188,9 @@ app.post("/product/edit", (req, res) => {
         });
 });
 
-app.post("/product/delete", (req, res) => {
-    console.log(req.body);
-    db.deleteProduct(req.body.id)
+app.post("/product/delete", s3.delete, (req, res) => {
+    console.log(req.body.params);
+    db.deleteProduct(req.body.params.id)
         .then(() => {
             res.json({ success: true });
         })

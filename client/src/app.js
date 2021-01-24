@@ -1,6 +1,7 @@
 import { Component } from "react";
 import styled from "styled-components";
 import ShoppingCard from "./ShoppingCard";
+import LoginAndRegistration from "./LoginAndRegistration";
 import axios from "./axios";
 
 const GridContainer = styled.div`
@@ -37,7 +38,16 @@ const Basket = styled.div`
     right: 0;
     top: 0;
     width: 530px;
-    height: 550px;
+`;
+
+const LoginComp = styled.div`
+    background: yellow;
+    margin: 10px;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 530px;
 `;
 
 export default class App extends Component {
@@ -46,6 +56,8 @@ export default class App extends Component {
         this.state = {
             product: [],
             shoppingCardVisible: false,
+            loginVisible: false,
+
             shoppingCardItems: [],
         };
     }
@@ -90,6 +102,12 @@ export default class App extends Component {
         });
     }
 
+    toggleLogin() {
+        this.setState({
+            loginVisible: !this.state.loginVisible,
+        });
+    }
+
     render() {
         return (
             <>
@@ -97,17 +115,7 @@ export default class App extends Component {
                     <nav>
                         <Buildingblock>
                             <h1>footer</h1>
-                            <ul>
-                                <li>
-                                    <a>Home</a>
-                                </li>
-                                <li>
-                                    <a>Settings</a>
-                                </li>
-                                <li>
-                                    <a>Impressum</a>
-                                </li>
-                            </ul>
+
                             <h2
                                 onClick={() => {
                                     this.toggleShoppingCard();
@@ -116,7 +124,11 @@ export default class App extends Component {
                                 Shopping Cart
                             </h2>
                             {this.state.shoppingCardVisible && (
-                                <Basket>
+                                <Basket
+                                    onMouseLeave={() => {
+                                        this.toggleShoppingCard();
+                                    }}
+                                >
                                     <button
                                         onClick={() => {
                                             this.toggleShoppingCard();
@@ -131,7 +143,28 @@ export default class App extends Component {
                                     />
                                 </Basket>
                             )}
-                            <h2 onClick={() => this.logout()}>Logout</h2>
+
+                            <h2
+                                onClick={() => {
+                                    this.toggleLogin();
+                                }}
+                            >
+                                Your Profile
+                            </h2>
+                            {this.state.loginVisible && (
+                                <LoginComp
+                                // onMouseLeave={() => this.toggleLogin()}
+                                >
+                                    <button
+                                        onClick={() => {
+                                            this.toggleLogin();
+                                        }}
+                                    >
+                                        close
+                                    </button>
+                                    <LoginAndRegistration />
+                                </LoginComp>
+                            )}
                         </Buildingblock>
                     </nav>
                     <header>
@@ -168,6 +201,7 @@ export default class App extends Component {
                     <footer>
                         <Buildingblock>
                             <h1>footer</h1>
+                            <a>Impressum</a>
                         </Buildingblock>
                     </footer>
                 </GridContainer>
