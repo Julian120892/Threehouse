@@ -1,5 +1,12 @@
 Client:
 
+
+next steps:
+- Browser Router integrieren LINKS to Checkout (if logged in, if not please register)
+- Checkout Seite mit drei states (shoppingCart-extended, registration, login)
+
+
+
 React-Components:
 
 app.js ---
@@ -44,9 +51,5 @@ productsObj{
         productPicture: "www.aws.com/u898u234ksdfh",
         price: "19,99"
         }
-    ]
-        
-
-    
-
+    ]    
 }

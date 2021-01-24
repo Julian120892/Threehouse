@@ -7,7 +7,8 @@ const Container = styled.div`
     justify-content: strech;
     align-items: strech;
     flex-direction: column;
-    background-color: red;
+    background: #f5f0ed;
+    border: 1px solid grey;
     margin: 5px;
 `;
 
@@ -16,6 +17,7 @@ export default class ShoppingCard extends Component {
         super(props);
         this.state = {
             displayItems: [],
+            price: 0,
         };
     }
 
@@ -25,7 +27,6 @@ export default class ShoppingCard extends Component {
 
     getProducts() {
         let productInShoppngCart = localStorage.getItem("items").split(",");
-        console.log("items in local storage ", productInShoppngCart);
 
         for (let i = 0; i < productInShoppngCart.length; i++) {
             let value = productInShoppngCart[i];
@@ -42,25 +43,62 @@ export default class ShoppingCard extends Component {
 
     getSumOfShoppingCart(data) {
         let sum = 0;
-        console.log("rechnet", data[0].product_price);
         for (let i = 0; i < data.length; i++) {
-            let w = parseFloat(data[i].product_price);
-            console.log(w);
-            sum += w;
+            let number = parseFloat(data[i].product_price);
+            sum += number;
         }
         this.setState({
             price: sum,
         });
     }
 
+    deleteFromShoppingCart(e) {
+        let arr = localStorage.items.split(",");
+        let newArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (i != e.target.id) {
+                newArr.push(arr[i]);
+            }
+        }
+
+        localStorage.setItem("items", newArr);
+        this.setState({
+            displayItems: [],
+        });
+        this.getProducts();
+    }
+
     render() {
+        if (!this.state.displayItems) {
+            return (
+                <>
+                    <p>shopping Card222222</p>;
+                    <Container>
+                        <h5>Summe</h5>
+                        <h1>00,00</h1>
+                    </Container>
+                    <button>Check Out</button>
+                </>
+            );
+        }
+
         return (
             <>
                 <p>shopping Card</p>
+
                 {this.state.displayItems.map((d, index) => (
                     <Container key={index}>
                         <h1>{d.product_name}</h1>
                         <h2>{d.product_price}</h2>
+                        <h5>{d.id}</h5>
+                        <h5>{index}</h5>
+
+                        <p
+                            id={index}
+                            onClick={(e) => this.deleteFromShoppingCart(e)}
+                        >
+                            delete Item
+                        </p>
                     </Container>
                 ))}
                 <hr />

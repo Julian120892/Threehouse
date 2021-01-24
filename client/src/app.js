@@ -12,26 +12,29 @@ const GridContainer = styled.div`
 `;
 
 const Buildingblock = styled.div`
-    background: blue;
+    background: #f5f0ed;
+    border: 1px solid grey;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: strech;
     margin-bottom: 10px;
     padding: 10px;
+    flex-wrap: wrap;
 `;
 
 const Item = styled.div`
-    background: green;
+    border: 1px solid grey;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: strech;
     margin: 10px;
-    padding: 10px;
+    padding: 30px;
 `;
 
 const Basket = styled.div`
-    background: yellow;
+    background: #f5f0ed;
+    border: 1px solid grey;
     margin: 10px;
     padding: 10px;
     position: absolute;
@@ -41,7 +44,8 @@ const Basket = styled.div`
 `;
 
 const LoginComp = styled.div`
-    background: yellow;
+    border: 1px solid grey;
+    background: #f5f0ed;
     margin: 10px;
     padding: 10px;
     position: absolute;
@@ -90,10 +94,10 @@ export default class App extends Component {
     }
 
     addToShoppingCard(e) {
-        //sets array of product_id's in local storage
         this.state.shoppingCardItems.push(e.target.id);
         localStorage.setItem("items", [this.state.shoppingCardItems]);
-        // console.log("items: ", localStorage.getItem("items"));
+        //adds as often as wanted but now we have duplicates not multiple
+        //no live update
     }
 
     toggleShoppingCard() {
@@ -115,6 +119,28 @@ export default class App extends Component {
                     <nav>
                         <Buildingblock>
                             <h1>footer</h1>
+
+                            <h2
+                                onClick={() => {
+                                    this.toggleLogin();
+                                }}
+                            >
+                                Your Profile
+                            </h2>
+                            {this.state.loginVisible && (
+                                <LoginComp
+                                // onMouseLeave={() => this.toggleLogin()}
+                                >
+                                    <button
+                                        onClick={() => {
+                                            this.toggleLogin();
+                                        }}
+                                    >
+                                        close
+                                    </button>
+                                    <LoginAndRegistration />
+                                </LoginComp>
+                            )}
 
                             <h2
                                 onClick={() => {
@@ -143,33 +169,18 @@ export default class App extends Component {
                                     />
                                 </Basket>
                             )}
-
-                            <h2
-                                onClick={() => {
-                                    this.toggleLogin();
-                                }}
-                            >
-                                Your Profile
-                            </h2>
-                            {this.state.loginVisible && (
-                                <LoginComp
-                                // onMouseLeave={() => this.toggleLogin()}
-                                >
-                                    <button
-                                        onClick={() => {
-                                            this.toggleLogin();
-                                        }}
-                                    >
-                                        close
-                                    </button>
-                                    <LoginAndRegistration />
-                                </LoginComp>
-                            )}
                         </Buildingblock>
                     </nav>
                     <header>
                         <Buildingblock>
                             <h1>header</h1>
+                            {this.state.product[0] && (
+                                <img
+                                    width="100%"
+                                    height="600px"
+                                    src={this.state.product[0].product_picture}
+                                />
+                            )}
                         </Buildingblock>
                     </header>
                     <main>
@@ -177,15 +188,15 @@ export default class App extends Component {
                             <h1>main</h1>
                             {this.state.product.map((d, index) => (
                                 <Item key={index}>
+                                    <img
+                                        src={d.product_picture}
+                                        width="30%"
+                                        height="auto"
+                                    />
                                     <h1>{d.product_name}</h1>
                                     <h2>{d.product_price}</h2>
                                     <h3>Id: {d.id}</h3>
                                     <p>{d.product_description}</p>
-                                    <img
-                                        src={d.product_picture}
-                                        width="100"
-                                        height="100"
-                                    />
                                     <button
                                         onClick={(e) =>
                                             this.addToShoppingCard(e)

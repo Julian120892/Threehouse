@@ -1,4 +1,26 @@
+/*
+colors:
+#F5F0ED beige
+#D4C6BD brown
+#3D5361
+
+*/
+
 body {
-    background-color: ghostwhite;
+    background-color: #f5f0ed;
     font-family: sans-serif;
+    color: #292929;
+}
+
+img {
+    object-fit: cover;
+}
+
+button {
+    background-color: #d4c6bd;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 40px;
+    font-size: 1rem;
+    color: whitesmoke;
 }

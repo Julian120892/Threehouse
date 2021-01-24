@@ -52,14 +52,18 @@ app.use(express.json());
 app.get("/getShoppingCartItems", (req, res) => {
     console.log("request for shoopigcart", req.query.value);
 
-    db.getSpecificProduct(req.query.value)
-        .then(({ rows }) => {
-            res.json(rows);
-        })
-        .catch((err) => {
-            console.log("error in getShoppingCartItems", err);
-            res.sendStatus(500);
-        });
+    if (!req.query.value) {
+        console.log("no items in cart");
+    } else {
+        db.getSpecificProduct(req.query.value)
+            .then(({ rows }) => {
+                res.json(rows);
+            })
+            .catch((err) => {
+                console.log("error in getShoppingCartItems", err);
+                res.statusCode(500);
+            });
+    }
 });
 
 /////////////////////LOGIN AND REGISTRATION///////////////////////////////
