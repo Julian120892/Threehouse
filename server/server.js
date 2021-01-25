@@ -166,9 +166,9 @@ app.post("/login", (req, res) => {
 app.post("/order", (req, res) => {
     console.log(req.body);
     db.addOrder(req.session.userId, req.body.items, req.body.price)
-        .then(() => {
-            console.log("succes");
-            res.json({ success: true });
+        .then(({ rows }) => {
+            console.log("succes", rows);
+            res.json(rows);
         })
         .catch((err) => {
             console.log(err);
@@ -185,6 +185,17 @@ app.get("/recent", (req, res) => {
         })
         .catch((err) => {
             console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+app.post("/paymentstatus", (req, res) => {
+    db.changePaymentStatus(req.body.orderId)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in paymentstatus", err);
             res.sendStatus(500);
         });
 });

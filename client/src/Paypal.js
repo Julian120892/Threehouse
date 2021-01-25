@@ -1,3 +1,4 @@
+import axios from "./axios";
 import { Component } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
 
@@ -9,12 +10,33 @@ if (process.env.NODE_ENV == "production") {
 }
 
 export default class Paypal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            displayItems: [],
+            price: 0,
+            userLoggedIn: false,
+        };
+    }
+
+    componentDidMount() {
+        console.log("paypal did mount", this.props);
+    }
+
+    changePaymentStatus() {
+        let orderId = this.props.currentOrder;
+        axios.post("/paymentstatus", orderId).then(() => {
+            console.log("weiterleiten mit location");
+        });
+    }
+
     render() {
         return (
             <PayPalButton
                 amount="0.01" //get from price
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                 onSuccess={(details, data) => {
+                    this.changePaymentStatus();
                     //hier muss dein axios in der datenbank zu bezahlt ändern und eine dankeSeite öffnen.
                     alert(
                         "Transaction completed by " +

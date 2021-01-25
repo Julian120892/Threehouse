@@ -2,35 +2,13 @@ Client:
 
 
 next steps:
-- Browser Router integrieren LINKS to Checkout (if logged in, if not please register)
-- Checkout Seite mit drei states (shoppingCart-extended, registration, login)
+- bezahloptionen auf checkout
+- weiterleitung zum bezahlen
+- bezahlenpage mit paypal integration
+- on success: payment_status ändern in DB und weiterleiten auf "danke" path
 
 
 
-React-Components:
-
-app.js ---
-----------
-        navigationbar
-        ------->navbar
-        ------->shopping card (id)
-        ------->logout/registration/login
-----------
-        header
-        ------>carousel(product-picture, name, id) //axios.get("product-infos")
-----------
-        main
-        ------>Metahead (productsObj.length, id) //axios.get("product-infos")
-        ------>ProductThumbnail (product-picture, price, name, id) //axios.get("product-infos")
-----------
-        footer
-
-
-
-adminConsole.js ---
---------form
-        -------->input picture (send to AWS S3 bucket)
-        --------> Form Data (to PRODUCTS table: price, name, description, primary-color)
 
 
 

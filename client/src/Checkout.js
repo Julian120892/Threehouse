@@ -48,7 +48,6 @@ export default class Checkout extends Component {
                     <h2>Shopping Cart</h2>
                     <ShoppingCart />
                     <Adress />
-                    <Paypal />
                 </>
             </>
         );

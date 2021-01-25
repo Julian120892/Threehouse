@@ -99,6 +99,7 @@ module.exports.updateAdress = (id, adress, city, zip) => {
 module.exports.addOrder = (id, items, price) => {
     const q = `INSERT INTO orders (customer_id, items, price, payment_status, shipping)
     VALUES ($1, $2, $3, false, false)
+    RETURNING id
     ;`;
     const params = [id, items, price];
     return db.query(q, params);
@@ -106,7 +107,7 @@ module.exports.addOrder = (id, items, price) => {
 
 module.exports.getOrders = () => {
     const q = `
-        SELECT users.first, users.last, users.email, users.adress, 
+        SELECT users.first, users.last, users.email, users.adress, orders.id, 
         users.zip, users.city, customer_id, items, order_timestamp,
         price, payment_status, shipping
         FROM orders
@@ -114,4 +115,13 @@ module.exports.getOrders = () => {
         ON ( customer_id = users.id)
         ORDER BY order_timestamp DESC;`;
     return db.query(q);
+};
+
+module.exports.changePaymentStatus = (orderId) => {
+    const q = `UPDATE orders 
+    SET payment_status = true
+    WHERE id = $1
+    ;`;
+    const params = [orderId];
+    return db.query(q, params);
 };

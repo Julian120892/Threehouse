@@ -1,6 +1,8 @@
 import { Component } from "react";
 import axios from "./axios";
 import styled from "styled-components";
+import Paypal from "./Paypal";
+import Link from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -19,11 +21,12 @@ export default class Adress extends Component {
             saveToServer: false,
             displayItems: [],
             price: 0,
+            currentOrder: 0,
         };
     }
 
     componentDidMount() {
-        console.log("adress.js did mount");
+        console.log("adress.js did mount", this.state);
         this.getUserData();
         this.getProducts();
     }
@@ -107,8 +110,11 @@ export default class Adress extends Component {
             price: this.state.price,
         };
 
-        axios.post("/order", orderObj).then(() => {
-            console.log("order completed");
+        axios.post("/order", orderObj).then((res) => {
+            console.log("order completed", res);
+            this.setState({
+                currentOrder: res.data[0].id,
+            });
         });
     }
 
@@ -200,10 +206,11 @@ export default class Adress extends Component {
                             )}
 
                             <button onClick={() => this.handleClick()}>
-                                Buy
+                                continue to payment
                             </button>
                         </div>
                     </div>
+                    {/* <Paypal currentOrder={this.state.currentOrder} /> */}
                 </Container>
             );
         } else {
@@ -271,6 +278,7 @@ export default class Adress extends Component {
                             </button>
                         </div>
                     </div>
+                    {/* <Paypal /> */}
                 </Container>
             );
         }
