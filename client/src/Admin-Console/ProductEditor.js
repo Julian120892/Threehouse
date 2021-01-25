@@ -180,7 +180,7 @@ export default class ProductEditor extends Component {
                                 onChange={(e) => this.handleChange(e)}
                                 name="updateName"
                                 type="text"
-                                placeholder={
+                                defaultValue={
                                     this.props.product[
                                         [this.state.updateValues.updateId]
                                     ].product_name
@@ -192,7 +192,7 @@ export default class ProductEditor extends Component {
                                 onChange={(e) => this.handleChange(e)}
                                 name="updatePrice"
                                 type="number"
-                                placeholder={
+                                defaultValue={
                                     this.props.product[
                                         [this.state.updateValues.updateId]
                                     ].product_price
@@ -205,7 +205,7 @@ export default class ProductEditor extends Component {
                                 onChange={(e) => this.handleChange(e)}
                                 name="updateDescription"
                                 type="text"
-                                placeholder={
+                                defaultValue={
                                     this.props.product[
                                         [this.state.updateValues.updateId]
                                     ].product_description

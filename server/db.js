@@ -62,19 +62,56 @@ SELECT * FROM products WHERE id = $1;
 module.exports.newUser = (first, last, email, password) => {
     const q = `INSERT INTO users (first, last, email, password)
     VALUES ($1, $2, $3, $4)
-    RETURNING id `;
+    RETURNING id; `;
     const params = [first, last, email, password];
     return db.query(q, params);
 };
 
 module.exports.loginIn = (email) => {
-    const q = `SELECT password, id FROM users WHERE email = $1`;
+    const q = `SELECT password, id FROM users WHERE email = $1;`;
     const params = [email];
     return db.query(q, params);
 };
 
 module.exports.getEmail = (email) => {
-    const q = `SELECT email FROM users WHERE email = $1`;
+    const q = `SELECT email FROM users WHERE email = $1;`;
     const params = [email];
     return db.query(q, params);
+};
+
+module.exports.getUserData = (id) => {
+    const q = `SELECT first, last, email, adress, city, zip 
+                FROM users 
+                WHERE id = $1;
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.updateAdress = (id, adress, city, zip) => {
+    const q = `UPDATE users 
+    SET adress = $2, city = $3, zip = $4
+    WHERE id = $1; `;
+    const params = [id, adress, city, zip];
+    return db.query(q, params);
+};
+
+module.exports.addOrder = (id, items, price) => {
+    const q = `INSERT INTO orders (customer_id, items, price, payment_status, shipping)
+    VALUES ($1, $2, $3, false, false)
+    ;`;
+    const params = [id, items, price];
+    return db.query(q, params);
+};
+
+module.exports.getOrders = () => {
+    const q = `
+        SELECT users.first, users.last, users.email, users.adress, 
+        users.zip, users.city, customer_id, items, order_timestamp,
+        price, payment_status, shipping
+        FROM orders
+        JOIN users
+        ON ( customer_id = users.id)
+        ORDER BY order_timestamp DESC;`;
+    return db.query(q);
 };

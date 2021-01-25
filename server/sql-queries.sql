@@ -25,3 +25,19 @@ CREATE TABLE users (
 );
 
 
+
+DROP TABLE IF EXISTS orders;
+
+CREATE TABLE orders (
+    id SERIAL primary key,
+    customer_id INT REFERENCES users(id) NOT NULL,
+    order_id SERIAL,
+    items VARCHAR(255),
+    price DECIMAL(10,2),
+    order_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    shipping BOOLEAN,
+    payment_status BOOLEAN,
+    shipping_reference INT
+);
+
+

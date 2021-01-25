@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "./axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -72,7 +73,7 @@ export default class ShoppingCard extends Component {
         if (!this.state.displayItems) {
             return (
                 <>
-                    <p>shopping Card222222</p>;
+                    <p>shopping Card</p>;
                     <Container>
                         <h5>Summe</h5>
                         <h1>00,00</h1>
@@ -106,8 +107,9 @@ export default class ShoppingCard extends Component {
                     <h5>Summe</h5>
                     <h1>{this.state.price}</h1>
                 </Container>
-
-                <button>Check Out</button>
+                <Link to="/checkout">
+                    <button>Check Out</button>
+                </Link>
             </>
         );
     }

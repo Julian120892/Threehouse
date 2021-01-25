@@ -1,6 +1,7 @@
 import { Component } from "react";
 import ProductEditor from "./ProductEditor";
 import Admin from "./Admin";
+import Orders from "./Orders";
 import axios from "../axios";
 
 export default class AdminConsole extends Component {
@@ -15,20 +16,6 @@ export default class AdminConsole extends Component {
 
     componentDidMount() {
         console.log("adminConsole mounted", this.state);
-
-        // axios.get("/product-list").then((res) => {
-        //     let productsArray = [];
-
-        //     for (let i = 0; i < res.data.length; i++) {
-        //         productsArray.push(res.data[i]);
-        //     }
-
-        //     this.setState({
-        //         product: productsArray,
-        //     });
-        // });
-        // console.log(this.state);
-
         this.getProducts();
     }
 
@@ -63,6 +50,7 @@ export default class AdminConsole extends Component {
                     product={this.state.product}
                     updateProductList={this.updateProductList}
                 />
+                <Orders />
             </>
         );
     }

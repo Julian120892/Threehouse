@@ -66,6 +66,35 @@ app.get("/getShoppingCartItems", (req, res) => {
     }
 });
 
+app.get("/userData", (req, res) => {
+    db.getUserData(req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("error in get user data ", err);
+        });
+});
+
+app.post("/adress", (req, res) => {
+    console.log(req.body);
+    db.updateAdress(
+        req.session.userId,
+        req.body.adress,
+        req.body.city,
+        req.body.zip
+    )
+        .then(() => {
+            res.json({
+                success: true,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(300);
+        });
+});
+
 /////////////////////LOGIN AND REGISTRATION///////////////////////////////
 
 app.get("/userLoggedIn", (req, res) => {
@@ -84,6 +113,9 @@ app.post("/logout", (req, res) => {
     req.session.userId = null;
     res.json({
         success: true,
+    }).catch((err) => {
+        console.log(err);
+        res.sendStatus(300);
     });
 });
 
@@ -126,6 +158,34 @@ app.post("/login", (req, res) => {
         .catch((err) => {
             console.log(err);
             res.sendStatus(300);
+        });
+});
+
+/////////////////////////////////Orders/////////////////////////////////
+
+app.post("/order", (req, res) => {
+    console.log(req.body);
+    db.addOrder(req.session.userId, req.body.items, req.body.price)
+        .then(() => {
+            console.log("succes");
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(300);
+        });
+});
+
+app.get("/recent", (req, res) => {
+    console.log("request fpr orders");
+    db.getOrders()
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
         });
 });
 
