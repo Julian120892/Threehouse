@@ -5,10 +5,14 @@ import styled from "styled-components";
 const Container = styled.div`
     background: white;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     padding: 25px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    background-color: ghostwhite;
+`;
+
+const Item = styled.div`
+    margin-top: 650px;
 `;
 
 export default class Orders extends Component {
@@ -70,14 +74,24 @@ export default class Orders extends Component {
 
     render() {
         return (
-            <>
+            <Item>
                 <h1>Recent Orders</h1>
                 {this.state.orders.map((d, index) => (
                     <Container key={index}>
                         <h3>OrderNo.: {d.id}</h3>
+                        <hr />
                         <h4>{d.order_timestamp}</h4>
                         <p>Products: {d.items}</p>
                         <p>total: {d.price} €</p>
+                        <h5>Shipping Adress:</h5>
+                        <p>
+                            {d.first} {d.last}
+                        </p>
+                        <p>{d.adress}</p>
+                        <p>
+                            {d.zip} {d.city}
+                        </p>
+
                         {!d.payment_status && <p>Payment_status: pending</p>}
                         {d.payment_status && <p>Payment_status: complete</p>}
                         {!d.shipping && <p>Shipping-Status: not dispatched</p>}
@@ -104,8 +118,7 @@ export default class Orders extends Component {
                         >
                             dispatched
                         </button>
-                        <br />
-                        <br />
+
                         <button
                             id={d.id}
                             onClick={(e) => {
@@ -114,25 +127,18 @@ export default class Orders extends Component {
                         >
                             payed
                         </button>
-                        <h5>Shipping Adress:</h5>
-                        <p>
-                            {d.first} {d.last}
-                        </p>
-                        <p>{d.adress}</p>
-                        <p>
-                            {d.zip} {d.city}
-                        </p>
+
                         <button
                             id={d.id}
                             onClick={(e) => {
                                 this.deleteOrder(e);
                             }}
                         >
-                            delete
+                            Delete Order
                         </button>
                     </Container>
                 ))}
-            </>
+            </Item>
         );
     }
 }

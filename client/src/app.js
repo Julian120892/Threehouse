@@ -15,9 +15,16 @@ const GridContainer = styled.div`
     flex-direction: column;
 `;
 
+const Nav = styled.div`
+    display: flex;
+    justify-content: strech;
+    align-items: strech;
+    flex-direction: column;
+`;
+
 const Buildingblock = styled.div`
     background: #f5f0ed;
-    border: 1px solid grey;
+    // border: 1px solid grey;
     display: flex;
     justify-content: space-between;
     align-items: strech;
@@ -134,7 +141,7 @@ export default class App extends Component {
                         exact
                         path="/"
                         render={() => (
-                            <GridContainer>
+                            <Nav>
                                 <nav>
                                     <Buildingblock>
                                         <h1>nav</h1>
@@ -212,6 +219,14 @@ export default class App extends Component {
                                                                 .product_name
                                                         }
                                                     </h1>
+                                                    <p>
+                                                        {
+                                                            this.state
+                                                                .product[2]
+                                                                .product_description
+                                                        }
+                                                    </p>
+
                                                     <h4>
                                                         {
                                                             this.state
@@ -248,8 +263,9 @@ export default class App extends Component {
                                                     height="auto"
                                                 />
                                                 <h1>{d.product_name}</h1>
+                                                <p>Thr3e Fragrance Tree</p>
                                                 <h2>{d.product_price}</h2>
-                                                <h3>Id: {d.id}</h3>
+                                                {/* <h3>Id: {d.id}</h3> */}
                                                 <p>{d.product_description}</p>
                                                 <button
                                                     onClick={(e) =>
@@ -271,7 +287,7 @@ export default class App extends Component {
                                         <a>Impressum</a>
                                     </Buildingblock>
                                 </footer>
-                            </GridContainer>
+                            </Nav>
                         )}
                     />
 

@@ -3,28 +3,43 @@ import axios from "../axios";
 import styled from "styled-components";
 
 const Item = styled.div`
-    background-color: lightblue;
+    background-color: ghostwhite;
     display: flex;
     justify-content: center;
     flex-direction: column;
     padding: 25px;
-    font-size: 0.4rem;
+    font-size: 0.8rem;
     margin: 5px;
-`;
-
-const OuterContainer = styled.div`
-    background: white;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    width: 80%;
 `;
 
 const Container = styled.div`
     background: white;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
     padding: 25px;
+    width: 100%;
+    // flex-wrap: wrap;
+`;
+
+const InnerContainer = styled.div`
+    background: white;
+    display: flex;
+    align-items: flex-start;
+    padding: 25px;
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border: 1px solid grey;
+`;
+
+const ProductContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    width: 80%;
+    flex-direction: column;
+    overflow-y: scroll;
 `;
 
 export default class ProductEditor extends Component {
@@ -151,130 +166,142 @@ export default class ProductEditor extends Component {
 
     render() {
         return (
-            <>
-                <hr />
+            <ProductContainer>
+                <Container>
+                    {this.props.product.map((d, index) => (
+                        <Item key={index}>
+                            <div>
+                                <img
+                                    src={d.product_picture}
+                                    width="100"
+                                    height="100"
+                                />
+                            </div>
+                            <div>
+                                <h1>{d.product_name}</h1>
+                                <h2>{d.product_price}</h2>
+                                <h3>Id: {d.id}</h3>
+                                <p>{d.product_description}</p>
+                                <button
+                                    onClick={(e) => this.editProduct(e)}
+                                    id={index}
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                        </Item>
+                    ))}
+                </Container>
                 {this.state.editModeVisible && (
                     <>
-                        <button
-                            onClick={() => {
-                                this.closeUploader();
-                            }}
-                        >
-                            close
-                        </button>
-                        <h1>Update {this.state.updateValues.updateName}</h1>
-
                         <Container>
-                            <h5>
-                                Product_Id:
-                                {
-                                    this.props.product[
-                                        this.state.updateValues.updateId
-                                    ].id
-                                }
-                            </h5>
-                            <button onClick={() => this.deleteProduct()}>
-                                Delete
-                            </button>
-                            <input
-                                onChange={(e) => this.handleChange(e)}
-                                name="updateName"
-                                type="text"
-                                defaultValue={
-                                    this.props.product[
-                                        [this.state.updateValues.updateId]
-                                    ].product_name
-                                }
-                                required
-                            />
-                            <br />
-                            <input
-                                onChange={(e) => this.handleChange(e)}
-                                name="updatePrice"
-                                type="number"
-                                defaultValue={
-                                    this.props.product[
-                                        [this.state.updateValues.updateId]
-                                    ].product_price
-                                }
-                                required
-                            />
-                            <br />
+                            <InnerContainer>
+                                <h1>
+                                    Update {this.state.updateValues.updateName}
+                                </h1>
+                                <h5>
+                                    Product_Id:
+                                    {
+                                        this.props.product[
+                                            this.state.updateValues.updateId
+                                        ].id
+                                    }
+                                </h5>
 
-                            <textarea
-                                onChange={(e) => this.handleChange(e)}
-                                name="updateDescription"
-                                type="text"
-                                defaultValue={
-                                    this.props.product[
-                                        [this.state.updateValues.updateId]
-                                    ].product_description
-                                }
-                                required
-                            />
-                            <br />
-
-                            <a
-                                src={
-                                    this.props.product[
-                                        [this.state.updateValues.updateId]
-                                    ].product_picture
-                                }
-                            >
-                                current Picture Url:
+                                <input
+                                    onChange={(e) => this.handleChange(e)}
+                                    name="updateName"
+                                    type="text"
+                                    defaultValue={
+                                        this.props.product[
+                                            [this.state.updateValues.updateId]
+                                        ].product_name
+                                    }
+                                    required
+                                />
                                 <br />
-                                {
-                                    this.props.product[
-                                        [this.state.updateValues.updateId]
-                                    ].product_picture
-                                }
-                            </a>
-                            <br />
-                            <br />
+                                <input
+                                    onChange={(e) => this.handleChange(e)}
+                                    name="updatePrice"
+                                    type="number"
+                                    defaultValue={
+                                        this.props.product[
+                                            [this.state.updateValues.updateId]
+                                        ].product_price
+                                    }
+                                    required
+                                />
+                                <br />
 
-                            <input
-                                onChange={(e) => this.handleFileChange(e)}
-                                type="file"
-                                name="updateProductPicture"
-                                accept="image/*"
-                                required
-                            />
-                            <br />
+                                <textarea
+                                    onChange={(e) => this.handleChange(e)}
+                                    name="updateDescription"
+                                    type="text"
+                                    defaultValue={
+                                        this.props.product[
+                                            [this.state.updateValues.updateId]
+                                        ].product_description
+                                    }
+                                    required
+                                />
+                                <br />
 
-                            {this.state.error && (
-                                <span>
-                                    Something went wrong, please try again.
-                                </span>
-                            )}
-                            <button onClick={() => this.handleClick()}>
-                                submit
-                            </button>
+                                <a
+                                    src={
+                                        this.props.product[
+                                            [this.state.updateValues.updateId]
+                                        ].product_picture
+                                    }
+                                >
+                                    current Picture Url:
+                                    <br />
+                                    {
+                                        this.props.product[
+                                            [this.state.updateValues.updateId]
+                                        ].product_picture
+                                    }
+                                </a>
+                                <br />
+                                <br />
+
+                                <input
+                                    onChange={(e) => this.handleFileChange(e)}
+                                    type="file"
+                                    name="updateProductPicture"
+                                    accept="image/*"
+                                    required
+                                />
+                                <br />
+
+                                {this.state.error && (
+                                    <span>
+                                        Something went wrong, please try again.
+                                    </span>
+                                )}
+
+                                <div>
+                                    <button onClick={() => this.handleClick()}>
+                                        Submit
+                                    </button>
+
+                                    <button
+                                        onClick={() => this.deleteProduct()}
+                                    >
+                                        Delete Product
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            this.closeUploader();
+                                        }}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </InnerContainer>
                         </Container>
                     </>
                 )}
-                <h1>Products</h1>
-                <OuterContainer>
-                    {this.props.product.map((d, index) => (
-                        <Item key={index}>
-                            <h1>{d.product_name}</h1>
-                            <h2>{d.product_price}</h2>
-                            <h3>Id: {d.id}</h3>
-                            <p>{d.product_description}</p>
-                            <img
-                                src={d.product_picture}
-                                width="100"
-                                height="100"
-                            />
-                            <button
-                                onClick={(e) => this.editProduct(e)}
-                                id={index}
-                            >
-                                Edit
-                            </button>
-                        </Item>
-                    ))}
-                </OuterContainer>
-            </>
+            </ProductContainer>
         );
     }
 }

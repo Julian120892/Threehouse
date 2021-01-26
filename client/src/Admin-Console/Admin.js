@@ -68,7 +68,7 @@ export default class Admin extends Component {
     render() {
         return (
             <Container>
-                <h1>Admin-Console</h1>
+                <h1>Add new Product</h1>
                 <input
                     onChange={(e) => this.handleChange(e)}
                     name="productName"
