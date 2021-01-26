@@ -1,8 +1,6 @@
 import { Component } from "react";
 import axios from "./axios";
 import styled from "styled-components";
-import Paypal from "./Paypal";
-import Link from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -112,10 +110,11 @@ export default class Adress extends Component {
 
         axios.post("/order", orderObj).then((res) => {
             console.log("order completed", res);
-            this.setState({
-                currentOrder: res.data[0].id,
-            });
+            // this.setState({
+            //     currentOrder: res.data[0].id,
+            // });
         });
+        location.replace("/pay");
     }
 
     saveToServer() {
@@ -210,7 +209,6 @@ export default class Adress extends Component {
                             </button>
                         </div>
                     </div>
-                    {/* <Paypal currentOrder={this.state.currentOrder} /> */}
                 </Container>
             );
         } else {
@@ -278,7 +276,6 @@ export default class Adress extends Component {
                             </button>
                         </div>
                     </div>
-                    {/* <Paypal /> */}
                 </Container>
             );
         }

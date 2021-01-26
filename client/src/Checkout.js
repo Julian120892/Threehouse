@@ -3,7 +3,6 @@ import axios from "./axios";
 import ShoppingCart from "./ShoppingCard";
 import LoginAndRegistration from "./LoginAndRegistration";
 import Adress from "./Adress";
-import Paypal from "./Paypal";
 
 export default class Checkout extends Component {
     constructor(props) {

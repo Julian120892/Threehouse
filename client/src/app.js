@@ -5,6 +5,8 @@ import LoginAndRegistration from "./LoginAndRegistration";
 import axios from "./axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import Checkout from "./Checkout";
+import Paypal from "./Paypal";
+import { Link } from "react-router-dom";
 
 const GridContainer = styled.div`
     display: flex;
@@ -79,7 +81,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        console.log("app.js mounted", this.props);
+        console.log("app.js mounted");
         this.getProducts();
     }
 
@@ -274,6 +276,17 @@ export default class App extends Component {
                     />
 
                     <Route exact path="/checkout" render={() => <Checkout />} />
+                    <Route exact path="/pay" render={() => <Paypal />} />
+                    <Route
+                        exact
+                        path="/thanks"
+                        render={() => (
+                            <>
+                                <h1>Thank you for your order</h1>
+                                <Link to="/">continue shopping</Link>
+                            </>
+                        )}
+                    />
                 </BrowserRouter>
             </>
         );

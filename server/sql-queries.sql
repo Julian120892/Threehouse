@@ -37,7 +37,7 @@ CREATE TABLE orders (
     order_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     shipping BOOLEAN,
     payment_status BOOLEAN,
-    shipping_reference INT
+    shipping_reference VARCHAR
 );
 
 

@@ -34,6 +34,40 @@ export default class Orders extends Component {
         });
     }
 
+    deleteOrder(e) {
+        let orderId = e.target.id;
+        console.log(orderId);
+        axios.post("/deleteorder", { params: { orderId } }).then(() => {
+            this.getOrders();
+        });
+    }
+
+    changePaymentStatus(e) {
+        let orderId = e.target.id;
+        console.log(orderId);
+        axios.post("/paymentstatus", { params: { orderId } }).then(() => {
+            this.getOrders();
+        });
+    }
+
+    dispatch(e) {
+        let orderId = e.target.id;
+        console.log(this.state.shippmentRef);
+        let referenceNumber = this.state.shippmentRef;
+        console.log("ref ", referenceNumber);
+        axios
+            .post("/dispatch", { params: { orderId, referenceNumber } })
+            .then(() => {
+                this.getOrders();
+            });
+    }
+
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    }
+
     render() {
         return (
             <>
@@ -49,8 +83,8 @@ export default class Orders extends Component {
                         {!d.shipping && <p>Shipping-Status: not dispatched</p>}
                         {d.shipping && (
                             <p>
-                                Shipping-Status: dispatched ref:
-                                {d.shipping_reference})
+                                Shipping-Status: dispatched ref:{" "}
+                                {d.shipping_reference}
                             </p>
                         )}
 
@@ -58,11 +92,28 @@ export default class Orders extends Component {
                             name="shippmentRef"
                             type="text"
                             placeholder="Shippment Reference Number"
+                            onChange={(e) => {
+                                this.handleChange(e);
+                            }}
                         />
-                        <button>dispatched</button>
+                        <button
+                            id={d.id}
+                            onClick={(e) => {
+                                this.dispatch(e);
+                            }}
+                        >
+                            dispatched
+                        </button>
                         <br />
                         <br />
-                        <button>payed</button>
+                        <button
+                            id={d.id}
+                            onClick={(e) => {
+                                this.changePaymentStatus(e);
+                            }}
+                        >
+                            payed
+                        </button>
                         <h5>Shipping Adress:</h5>
                         <p>
                             {d.first} {d.last}
@@ -71,6 +122,14 @@ export default class Orders extends Component {
                         <p>
                             {d.zip} {d.city}
                         </p>
+                        <button
+                            id={d.id}
+                            onClick={(e) => {
+                                this.deleteOrder(e);
+                            }}
+                        >
+                            delete
+                        </button>
                     </Container>
                 ))}
             </>

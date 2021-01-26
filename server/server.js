@@ -190,12 +190,26 @@ app.get("/recent", (req, res) => {
 });
 
 app.post("/paymentstatus", (req, res) => {
-    db.changePaymentStatus(req.body.orderId)
+    console.log(req.body.params.orderId);
+    db.changePaymentStatus(req.body.params.orderId)
         .then(() => {
+            console.log("success");
             res.json({ success: true });
         })
         .catch((err) => {
             console.log("error in paymentstatus", err);
+            res.sendStatus(500);
+        });
+});
+
+app.get("/payment", (req, res) => {
+    db.getLastOrder()
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log(err);
             res.sendStatus(500);
         });
 });
@@ -271,6 +285,33 @@ app.post("/product/delete", s3.delete, (req, res) => {
         })
         .catch((err) => {
             console.log("error in uploader", err);
+            res.sendStatus(500);
+        });
+});
+
+app.post("/deleteorder", (req, res) => {
+    console.log(req.body.params.orderId);
+    db.deleteOrder(req.body.params.orderId)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in deleteOrder", err);
+            res.sendStatus(500);
+        });
+});
+
+app.post("/dispatch", (req, res) => {
+    let id = req.body.params.orderId;
+    let ref = req.body.params.referenceNumber;
+
+    console.log(ref);
+    db.updateShipping(id, ref)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in dispatch", err);
             res.sendStatus(500);
         });
 });

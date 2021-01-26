@@ -108,7 +108,7 @@ module.exports.addOrder = (id, items, price) => {
 module.exports.getOrders = () => {
     const q = `
         SELECT users.first, users.last, users.email, users.adress, orders.id, 
-        users.zip, users.city, customer_id, items, order_timestamp,
+        users.zip, users.city, customer_id, items, order_timestamp, shipping_reference,
         price, payment_status, shipping
         FROM orders
         JOIN users
@@ -123,5 +123,38 @@ module.exports.changePaymentStatus = (orderId) => {
     WHERE id = $1
     ;`;
     const params = [orderId];
+    return db.query(q, params);
+};
+
+module.exports.getLastOrder = () => {
+    const q = `SELECT users.first, users.last, users.email, users.adress, orders.id, 
+                users.zip, users.city, customer_id, items, order_timestamp,
+                price, payment_status, shipping
+                FROM orders 
+                JOIN users
+                ON ( customer_id = users.id)
+                ORDER BY order_timestamp DESC
+                LIMIT 1
+                ;
+    `;
+    return db.query(q);
+};
+
+module.exports.deleteOrder = (id) => {
+    const q = ` 
+        DELETE FROM orders 
+        WHERE id = $1
+        ;
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.updateShipping = (id, ref) => {
+    const q = `UPDATE orders 
+    SET shipping = true, shipping_reference = $2
+    WHERE id = $1
+    ;`;
+    const params = [id, ref];
     return db.query(q, params);
 };
