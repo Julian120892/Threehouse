@@ -15,11 +15,12 @@ const GridContainer = styled.div`
     flex-direction: column;
 `;
 
-const Nav = styled.div`
+const Page = styled.div`
     display: flex;
     justify-content: strech;
     align-items: strech;
     flex-direction: column;
+    padding: 70px;
 `;
 
 const Buildingblock = styled.div`
@@ -141,7 +142,7 @@ export default class App extends Component {
                         exact
                         path="/"
                         render={() => (
-                            <Nav>
+                            <Page>
                                 <nav>
                                     <Buildingblock>
                                         <h1>nav</h1>
@@ -198,6 +199,7 @@ export default class App extends Component {
                                         )}
                                     </Buildingblock>
                                 </nav>
+
                                 <header>
                                     <Buildingblock>
                                         <h1>header</h1>
@@ -235,6 +237,7 @@ export default class App extends Component {
                                                         }
                                                     </h4>
                                                     <button
+                                                        className="btn-1"
                                                         onClick={(e) =>
                                                             this.addToShoppingCard(
                                                                 e
@@ -287,7 +290,7 @@ export default class App extends Component {
                                         <a>Impressum</a>
                                     </Buildingblock>
                                 </footer>
-                            </Nav>
+                            </Page>
                         )}
                     />
 

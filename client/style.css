@@ -32,6 +32,27 @@ button {
     color: whitesmoke;
     margin: 5px;
 }
+button:hover {
+    background-color: lightgrey;
+    color: grey;
+}
+
+.btn-1 {
+    /* background-color: #d4c6bd; */
+    background-color: transparent;
+    border: 2.5px solid whitesmoke;
+    border-radius: 3px;
+    padding: 10px 40px;
+    font-size: 1rem;
+    color: whitesmoke;
+    margin: 5px;
+}
+
+.btn-1:hover {
+    background-color: whitesmoke;
+    color: grey;
+    border: 2.5px solid whitesmoke;
+}
 
 h1 {
     font-family: "Poppins", sans-serif;

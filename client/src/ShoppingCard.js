@@ -9,8 +9,10 @@ const Container = styled.div`
     align-items: strech;
     flex-direction: column;
     background: #f5f0ed;
-    border: 1px solid grey;
+    // border: 1px solid grey;
+    background-color: ghostwhite;
     margin: 5px;
+    padding: 20px;
 `;
 
 export default class ShoppingCard extends Component {
@@ -85,15 +87,15 @@ export default class ShoppingCard extends Component {
 
         return (
             <>
-                <p>shopping Card</p>
+                <h2>Shopping Cart</h2>
 
                 {this.state.displayItems.map((d, index) => (
                     <Container key={index}>
                         <h1>{d.product_name}</h1>
-                        <h2>{d.product_price}</h2>
-                        <h5>{d.id}</h5>
-                        <h5>{index}</h5>
-
+                        <h4>{d.product_price}</h4>
+                        {/* <h5>{d.id}</h5> */}
+                        {/* <h5>{index}</h5> */}
+                        <br />
                         <p
                             id={index}
                             onClick={(e) => this.deleteFromShoppingCart(e)}
@@ -105,7 +107,7 @@ export default class ShoppingCard extends Component {
                 <hr />
                 <Container>
                     <h5>Summe</h5>
-                    <h1>{this.state.price}</h1>
+                    <h1>{this.state.price}€</h1>
                 </Container>
                 <Link to="/checkout">
                     <button>Check Out</button>
