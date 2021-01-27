@@ -139,7 +139,7 @@ export default class Checkout extends Component {
                         </Buildingblock>
                     </nav>
 
-                    <div div className="grid-container">
+                    <div className="grid-container">
                         <>
                             <div className="col-50">
                                 <h1>Checkout</h1>
