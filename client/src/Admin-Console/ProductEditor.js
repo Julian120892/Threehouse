@@ -196,9 +196,20 @@ export default class ProductEditor extends Component {
                     <>
                         <Container>
                             <InnerContainer>
-                                <h1>
-                                    Update {this.state.updateValues.updateName}
-                                </h1>
+                                <div className="update-header">
+                                    <h1>
+                                        Update{" "}
+                                        {this.state.updateValues.updateName}
+                                    </h1>
+                                    <img
+                                        src="/img/close.png"
+                                        alt="close"
+                                        className="icon-black-small"
+                                        onClick={() => {
+                                            this.closeUploader();
+                                        }}
+                                    />
+                                </div>
                                 <h5>
                                     Product_Id:
                                     {
@@ -207,7 +218,10 @@ export default class ProductEditor extends Component {
                                         ].id
                                     }
                                 </h5>
+                                <br />
+                                <br />
 
+                                <p>Product Name:</p>
                                 <input
                                     onChange={(e) => this.handleChange(e)}
                                     name="updateName"
@@ -220,6 +234,8 @@ export default class ProductEditor extends Component {
                                     required
                                 />
                                 <br />
+                                <p>Price:</p>
+
                                 <input
                                     onChange={(e) => this.handleChange(e)}
                                     name="updatePrice"
@@ -232,6 +248,7 @@ export default class ProductEditor extends Component {
                                     required
                                 />
                                 <br />
+                                <p>Description:</p>
 
                                 <textarea
                                     onChange={(e) => this.handleChange(e)}
@@ -289,13 +306,13 @@ export default class ProductEditor extends Component {
                                     >
                                         Delete Product
                                     </button>
-                                    <button
+                                    {/* <button
                                         onClick={() => {
                                             this.closeUploader();
                                         }}
                                     >
                                         Close
-                                    </button>
+                                    </button> */}
                                 </div>
                             </InnerContainer>
                         </Container>

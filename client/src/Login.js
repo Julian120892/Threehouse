@@ -59,8 +59,12 @@ export default class Login extends Component {
                     {this.state.error && (
                         <span>Something went wrong, please try again.</span>
                     )}
-                    <button onClick={() => this.handleClick()}>submit</button>
-                    {/* <Link to="/">Not a user? Register here!</Link> */}
+                    <button
+                        className="btn-1"
+                        onClick={() => this.handleClick()}
+                    >
+                        submit
+                    </button>
                 </div>
             </div>
         );

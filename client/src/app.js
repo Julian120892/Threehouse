@@ -8,46 +8,49 @@ import Checkout from "./Checkout";
 import Paypal from "./Paypal";
 import { Link } from "react-router-dom";
 
-const GridContainer = styled.div`
-    display: flex;
-    justify-content: strech;
-    align-items: strech;
-    flex-direction: column;
-`;
-
-const Page = styled.div`
-    display: flex;
-    justify-content: strech;
-    align-items: strech;
-    flex-direction: column;
-    padding: 70px;
+const Logo = styled.div`
+    color: white;
 `;
 
 const Buildingblock = styled.div`
-    background: #f5f0ed;
     // border: 1px solid grey;
     display: flex;
     justify-content: space-between;
     align-items: strech;
-    margin-bottom: 10px;
-    padding: 10px;
     flex-wrap: wrap;
     positon: relative;
 `;
 
+const Main = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: strech;
+    flex-wrap: wrap;
+    positon: relative;
+`;
+
+const Footer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 40px;
+    flex-wrap: wrap;
+    positon: fixed;
+    color: ghostwhite;
+`;
+
 const Item = styled.div`
-    border: 1px solid grey;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    align-items: strech;
-    margin: 10px;
-    padding: 30px;
+    background: #f5f0ed;
+    min-width: 200px;
+    max-height: 600px;
+    positon: relative;
 `;
 
 const Basket = styled.div`
-    background: #f5f0ed;
-    border: 1px solid grey;
+    background: #d4c6bd;
     margin: 10px;
     padding: 10px;
     position: absolute;
@@ -58,8 +61,7 @@ const Basket = styled.div`
 `;
 
 const LoginComp = styled.div`
-    border: 1px solid grey;
-    background: #f5f0ed;
+    background: #d4c6bd;
     margin: 10px;
     padding: 10px;
     position: absolute;
@@ -67,13 +69,6 @@ const LoginComp = styled.div`
     top: 0;
     width: 530px;
     z-index: 150;
-`;
-
-const SpecialOffer = styled.div`
-    position: absolute;
-    top: 400px;
-    left: 90px;
-    color: white;
 `;
 
 export default class App extends Component {
@@ -116,9 +111,9 @@ export default class App extends Component {
     }
 
     addToShoppingCard(e) {
+        console.log("added to shopping cart");
         this.state.shoppingCardItems.push(e.target.id);
         localStorage.setItem("items", [this.state.shoppingCardItems]);
-        //adds as often as wanted but now we have duplicates not multiple
         //no live update
     }
 
@@ -142,155 +137,268 @@ export default class App extends Component {
                         exact
                         path="/"
                         render={() => (
-                            <Page>
+                            <>
                                 <nav>
                                     <Buildingblock>
-                                        <h1>nav</h1>
-
-                                        <h2
-                                            onClick={() => {
-                                                this.toggleLogin();
-                                            }}
-                                        >
-                                            Your Profile
-                                        </h2>
-                                        {this.state.loginVisible && (
-                                            <LoginComp
-                                            // onMouseLeave={() => this.toggleLogin()}
-                                            >
-                                                <button
-                                                    onClick={() => {
-                                                        this.toggleLogin();
-                                                    }}
+                                        <Logo>
+                                            <h1>TREE</h1>
+                                            <p>
+                                                Fragrance Trees for nature
+                                                lovers
+                                            </p>
+                                        </Logo>
+                                        <div className="nav-links">
+                                            <img
+                                                src="/img/my.png"
+                                                alt="Your Profile"
+                                                className="icon-black"
+                                                onClick={() => {
+                                                    this.toggleLogin();
+                                                }}
+                                            />
+                                            {this.state.loginVisible && (
+                                                <LoginComp
+                                                // onMouseLeave={() =>
+                                                //     this.toggleLogin()
+                                                // }
                                                 >
-                                                    close
-                                                </button>
-                                                <LoginAndRegistration />
-                                            </LoginComp>
-                                        )}
+                                                    <img
+                                                        src="/img/close.png"
+                                                        alt="close"
+                                                        className="icon-black-small"
+                                                        onClick={() => {
+                                                            this.toggleLogin();
+                                                        }}
+                                                    />
 
-                                        <h2
-                                            onClick={() => {
-                                                this.toggleShoppingCard();
-                                            }}
-                                        >
-                                            Shopping Cart
-                                        </h2>
-                                        {this.state.shoppingCardVisible && (
-                                            <Basket
-                                            // onMouseLeave={() => {
-                                            //     this.toggleShoppingCard();
-                                            // }}
-                                            >
-                                                <button
-                                                    onClick={() => {
+                                                    <LoginAndRegistration />
+                                                </LoginComp>
+                                            )}
+
+                                            <img
+                                                className="icon-black"
+                                                src="/img/shopping.png"
+                                                alt="Shopping Cart"
+                                                onClick={() => {
+                                                    this.toggleShoppingCard();
+                                                }}
+                                            />
+                                            {this.state.shoppingCardVisible && (
+                                                <Basket
+                                                    onMouseLeave={() => {
                                                         this.toggleShoppingCard();
                                                     }}
                                                 >
-                                                    close
-                                                </button>
-                                                <ShoppingCard
-                                                    shoppingCardItems={
-                                                        this.state
-                                                            .shoppingCardItems
-                                                    }
-                                                />
-                                            </Basket>
-                                        )}
+                                                    <img
+                                                        src="/img/close.png"
+                                                        alt="close"
+                                                        className="icon-black-small"
+                                                        onClick={() => {
+                                                            this.toggleShoppingCard();
+                                                        }}
+                                                    />
+                                                    <ShoppingCard
+                                                        shoppingCardItems={
+                                                            this.state
+                                                                .shoppingCardItems
+                                                        }
+                                                    />
+                                                </Basket>
+                                            )}
+                                        </div>
                                     </Buildingblock>
                                 </nav>
-
                                 <header>
                                     <Buildingblock>
-                                        <h1>header</h1>
-                                        {this.state.product[0] && (
-                                            <>
-                                                <img
-                                                    width="100%"
-                                                    height="600px"
-                                                    src={
-                                                        this.state.product[2]
-                                                            .product_picture
-                                                    }
-                                                />
-                                                <SpecialOffer>
-                                                    <h1>
-                                                        {
-                                                            this.state
-                                                                .product[2]
-                                                                .product_name
-                                                        }
-                                                    </h1>
-                                                    <p>
-                                                        {
-                                                            this.state
-                                                                .product[2]
-                                                                .product_description
-                                                        }
-                                                    </p>
+                                        <div className="grid-container">
+                                            <div className="col-50">
+                                                {this.state.product[0] && (
+                                                    <>
+                                                        <img
+                                                            width="100%"
+                                                            height="100%"
+                                                            src={
+                                                                this.state
+                                                                    .product[2]
+                                                                    .product_picture
+                                                            }
+                                                        />
+                                                        <div className="special-offer">
+                                                            <h1>
+                                                                {
+                                                                    this.state
+                                                                        .product[2]
+                                                                        .product_name
+                                                                }
+                                                            </h1>
+                                                            <p>
+                                                                {
+                                                                    this.state
+                                                                        .product[2]
+                                                                        .product_description
+                                                                }
+                                                            </p>
+                                                            <br />
 
-                                                    <h4>
-                                                        {
-                                                            this.state
-                                                                .product[2]
-                                                                .product_price
-                                                        }
-                                                    </h4>
-                                                    <button
-                                                        className="btn-1"
-                                                        onClick={(e) =>
-                                                            this.addToShoppingCard(
-                                                                e
-                                                            )
-                                                        }
-                                                        id={
-                                                            this.state
-                                                                .product[2].id
-                                                        }
-                                                    >
-                                                        add to shopping Card
-                                                    </button>
-                                                </SpecialOffer>
-                                            </>
-                                        )}
+                                                            <h2>
+                                                                {
+                                                                    this.state
+                                                                        .product[2]
+                                                                        .product_price
+                                                                }{" "}
+                                                                €
+                                                            </h2>
+                                                            <br />
+                                                            <button
+                                                                className="btn-1"
+                                                                onClick={(e) =>
+                                                                    this.addToShoppingCard(
+                                                                        e
+                                                                    )
+                                                                }
+                                                                id={
+                                                                    this.state
+                                                                        .product[2]
+                                                                        .id
+                                                                }
+                                                            >
+                                                                Add to Shopping
+                                                                Cart
+                                                            </button>
+                                                        </div>
+                                                    </>
+                                                )}{" "}
+                                            </div>
+                                            <div className="col-50-column">
+                                                <div className="col-100">
+                                                    <div className="teaser-text">
+                                                        <h1>
+                                                            Organic for your car
+                                                        </h1>
+
+                                                        <h3>
+                                                            <br />
+                                                            "While many natural
+                                                            fragrances have a
+                                                            reputation for
+                                                            feeling more earthy
+                                                            than beachy, THREE
+                                                            is like a summer
+                                                            day, liquidifed and
+                                                            hanging from your
+                                                            rear mirror.
+                                                            <br />
+                                                            <br />
+                                                            The fresh florals
+                                                            make it light,
+                                                            easy-to-wear, and
+                                                            cheery."
+                                                        </h3>
+                                                        <Link to="/more">
+                                                            <img
+                                                                src="/img/arrow.png"
+                                                                className="icon-arrow"
+                                                                alt="more infos"
+                                                            />
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <div className="col-100">
+                                                    <div className="teaser-picture">
+                                                        {this.state
+                                                            .product[0] && (
+                                                            <img
+                                                                width="100%"
+                                                                src="/img/preview.jpg"
+                                                            />
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </Buildingblock>
                                 </header>
                                 <main>
-                                    <Buildingblock>
-                                        <h1>main</h1>
-                                        {this.state.product.map((d, index) => (
-                                            <Item key={index}>
-                                                <img
-                                                    src={d.product_picture}
-                                                    width="30%"
-                                                    height="auto"
-                                                />
-                                                <h1>{d.product_name}</h1>
-                                                <p>Thr3e Fragrance Tree</p>
-                                                <h2>{d.product_price}</h2>
-                                                {/* <h3>Id: {d.id}</h3> */}
-                                                <p>{d.product_description}</p>
-                                                <button
-                                                    onClick={(e) =>
-                                                        this.addToShoppingCard(
-                                                            e
-                                                        )
-                                                    }
-                                                    id={d.id}
-                                                >
-                                                    add to shopping Card
-                                                </button>
-                                            </Item>
-                                        ))}
-                                    </Buildingblock>
+                                    <Main>
+                                        <div className="grid-container">
+                                            {this.state.product.map(
+                                                (d, index) => (
+                                                    <div
+                                                        className="col-50"
+                                                        key={index}
+                                                    >
+                                                        <div className="product">
+                                                            <img
+                                                                src={
+                                                                    d.product_picture
+                                                                }
+                                                                className="product-picture"
+                                                            />
+
+                                                            <div className="product-text">
+                                                                <div className="half">
+                                                                    <h1>
+                                                                        {
+                                                                            d.product_name
+                                                                        }
+                                                                    </h1>
+                                                                    <p>
+                                                                        Thr3e
+                                                                        Fragrance
+                                                                        Tree
+                                                                    </p>
+                                                                    <br />
+                                                                    <h2>
+                                                                        {
+                                                                            d.product_price
+                                                                        }{" "}
+                                                                        €
+                                                                    </h2>
+                                                                    <br />
+                                                                    <p>
+                                                                        {
+                                                                            d.product_description
+                                                                        }
+                                                                    </p>
+                                                                    <br />
+                                                                    <br />
+                                                                    <br />
+                                                                    <br />
+                                                                    <button
+                                                                        className="btn-1"
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
+                                                                            this.addToShoppingCard(
+                                                                                e
+                                                                            )
+                                                                        }
+                                                                        id={
+                                                                            this
+                                                                                .state
+                                                                                .product[2]
+                                                                                .id
+                                                                        }
+                                                                    >
+                                                                        Add
+                                                                        Product
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            )}
+                                        </div>
+                                    </Main>
                                 </main>
                                 <footer>
-                                    <Buildingblock>
+                                    <Footer>
                                         <h1>footer</h1>
                                         <a>Impressum</a>
-                                    </Buildingblock>
+                                    </Footer>
                                 </footer>
-                            </Page>
+                            </>
                         )}
                     />
 

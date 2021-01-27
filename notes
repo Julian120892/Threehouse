@@ -2,15 +2,8 @@ Client:
 
 
 next steps:
-- bezahloptionen auf checkout
-- weiterleitung zum bezahlen
-- bezahlenpage mit paypal integration
-- on success: payment_status ändern in DB und weiterleiten auf "danke" path
-
-
-
-
-
+- "back" reiter im checkout prozess
+- styling main, checkout, pay,
 
 
 

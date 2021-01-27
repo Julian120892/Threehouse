@@ -70,6 +70,7 @@ export default class Admin extends Component {
             <Container>
                 <h1>Add new Product</h1>
                 <input
+                    className="admin"
                     onChange={(e) => this.handleChange(e)}
                     name="productName"
                     type="text"
@@ -78,6 +79,7 @@ export default class Admin extends Component {
                 />
                 <br />
                 <input
+                    className="admin"
                     onChange={(e) => this.handleChange(e)}
                     name="productPrice"
                     type="number"
@@ -87,6 +89,7 @@ export default class Admin extends Component {
                 <br />
 
                 <textarea
+                    className="admin"
                     onChange={(e) => this.handleChange(e)}
                     name="productDescription"
                     type="text"
@@ -96,6 +99,7 @@ export default class Admin extends Component {
                 <br />
 
                 <input
+                    className="admin"
                     onChange={(e) => this.handleFileChange(e)}
                     type="file"
                     name="productPicture"

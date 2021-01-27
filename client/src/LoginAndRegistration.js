@@ -19,10 +19,6 @@ export default class LoginAndRegistration extends Component {
         this.userLoggedIn();
     }
 
-    componentDidUpdate() {
-        // this.userLoggedIn();
-    }
-
     changeLoginMode(mode) {
         console.log("change");
         this.setState({
@@ -61,14 +57,24 @@ export default class LoginAndRegistration extends Component {
 
     render() {
         if (this.state.userLoggedIn) {
-            return <button onClick={() => this.logout()}>LOG OUT</button>;
+            return (
+                <>
+                    <h1>You are logged in now.</h1>
+                    <button className="btn-1" onClick={() => this.logout()}>
+                        LOG OUT
+                    </button>
+                </>
+            );
         } else {
             if (this.state.userWantsToLogIn == "login") {
                 return (
                     <>
                         <Login changeLoginStatus={this.changeLoginStatus} />
-                        <p onClick={() => this.changeLoginMode("registration")}>
-                            Already a Customer, login here.
+                        <p
+                            className="link"
+                            onClick={() => this.changeLoginMode("registration")}
+                        >
+                            Not a Customer, register here.
                         </p>
                     </>
                 );
@@ -78,7 +84,10 @@ export default class LoginAndRegistration extends Component {
                         <Registration
                             changeLoginStatus={this.changeLoginStatus}
                         />
-                        <p onClick={() => this.changeLoginMode("login")}>
+                        <p
+                            className="link"
+                            onClick={() => this.changeLoginMode("login")}
+                        >
                             Already a Customer, login here.
                         </p>
                     </>

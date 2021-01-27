@@ -70,7 +70,12 @@ export default class Registration extends Component {
                         <span>Something went wrong, please try again.</span>
                     )}
 
-                    <button onClick={() => this.handleClick()}>submit</button>
+                    <button
+                        className="btn-1"
+                        onClick={() => this.handleClick()}
+                    >
+                        submit
+                    </button>
                 </div>
             </div>
         );

@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
-    justify-content: strech;
-    align-items: strech;
-    flex-direction: column;
-    background: #f5f0ed;
-    // border: 1px solid grey;
-    background-color: ghostwhite;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    // background: #f5f0ed;
     margin: 5px;
     padding: 20px;
 `;
@@ -80,38 +78,50 @@ export default class ShoppingCard extends Component {
                         <h5>Summe</h5>
                         <h1>00,00</h1>
                     </Container>
-                    <button>Check Out</button>
+                    <button className="btn-1">Check Out</button>
                 </>
             );
         }
 
         return (
             <>
-                <h2>Shopping Cart</h2>
-
                 {this.state.displayItems.map((d, index) => (
-                    <Container key={index}>
-                        <h1>{d.product_name}</h1>
-                        <h4>{d.product_price}</h4>
-                        {/* <h5>{d.id}</h5> */}
-                        {/* <h5>{index}</h5> */}
-                        <br />
-                        <p
-                            id={index}
-                            onClick={(e) => this.deleteFromShoppingCart(e)}
-                        >
-                            delete Item
-                        </p>
+                    <Container key={index} className="shoppingcart-item">
+                        <div>
+                            <p>{d.product_name}</p>
+
+                            <br />
+                            <h4>{d.product_price}</h4>
+                            {/* <h5>{d.id}</h5> */}
+                            {/* <h5>{index}</h5> */}
+                        </div>
+                        <div>
+                            {/* <p
+                                id={index}
+                                onClick={(e) => this.deleteFromShoppingCart(e)}
+                            >
+                                delete Item
+                            </p> */}
+                            <img
+                                id={index}
+                                onClick={(e) => this.deleteFromShoppingCart(e)}
+                                src="/img/delete.png"
+                                className="icon-black-small"
+                                alt="delete Item"
+                            />
+                        </div>
                     </Container>
                 ))}
-                <hr />
-                <Container>
-                    <h5>Summe</h5>
-                    <h1>{this.state.price}€</h1>
-                </Container>
-                <Link to="/checkout">
-                    <button>Check Out</button>
-                </Link>
+
+                <div className="sum">
+                    <button className="btn-1">Check Out</button>
+
+                    <div>
+                        <h5>Summe</h5>
+                        <h1>{this.state.price}€</h1>
+                    </div>
+                </div>
+                <Link to="/checkout"></Link>
             </>
         );
     }
