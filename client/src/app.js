@@ -155,7 +155,7 @@ export default class App extends Component {
                                 <nav>
                                     <Buildingblock>
                                         <Logo>
-                                            <h1>THREEHOUSE</h1>
+                                            <h1>THR3EHOUSE</h1>
                                             <p>
                                                 Fragrance Trees for nature
                                                 lovers
@@ -226,7 +226,7 @@ export default class App extends Component {
                                     <Buildingblock>
                                         <div className="grid-container">
                                             <div className="name">
-                                                THREEHOUSE.
+                                                THR3EHOUSE.
                                             </div>
                                             <div className="col-50">
                                                 {this.state.product[0] && (
