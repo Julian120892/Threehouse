@@ -102,7 +102,7 @@ export default class ProductEditor extends Component {
                 console.log("updated profile");
 
                 if (this.state.undefined) {
-                    axios.post("/upload", formData).then(() => {
+                    axios.post(`/upload/${updateObj.id}`, formData).then(() => {
                         console.log("updated picture");
                         this.setState({
                             error: false,

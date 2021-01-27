@@ -246,8 +246,29 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     if (req.file) {
         const url = config.s3Url + req.file.filename;
         let id = req.session.productId;
+        console.log(id);
 
         db.uploadProductPic(id, url)
+            .then(({ rows }) => {
+                res.json(rows);
+            })
+            .catch((err) => {
+                console.log("error in uploader", err);
+                res.sendStatus(500);
+            });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+app.post("/upload/:id", uploader.single("image"), s3.upload, (req, res) => {
+    console.log("request for picture");
+    if (req.file) {
+        const url = config.s3Url + req.file.filename;
+        let id = req.path.split("/");
+        console.log("id", id[2]);
+
+        db.uploadProductPic(id[2], url)
             .then(({ rows }) => {
                 res.json(rows);
             })

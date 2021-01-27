@@ -69,7 +69,10 @@ export default class LoginAndRegistration extends Component {
             if (this.state.userWantsToLogIn == "login") {
                 return (
                     <>
-                        <Login changeLoginStatus={this.changeLoginStatus} />
+                        <Login
+                            changeLoginStatus={this.changeLoginStatus}
+                        ></Login>
+
                         <p
                             className="link"
                             onClick={() => this.changeLoginMode("registration")}

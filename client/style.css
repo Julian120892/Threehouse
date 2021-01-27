@@ -23,6 +23,7 @@ body {
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
 }
 
 img {
@@ -35,7 +36,12 @@ textarea {
 }
 
 nav {
-    padding: 30px;
+    padding: 5px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background-color: transparent;
+    width: 95%;
 }
 
 input {
@@ -65,6 +71,15 @@ h3 {
     font-size: 0.8rem;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: black;
+}
+
 /*-------icons ----------*/
 
 .icon-arrow {
@@ -92,6 +107,22 @@ h3 {
 
 .icon-black:hover {
     filter: brightness(8000%);
+}
+
+.icon-white {
+    width: 30px;
+    padding: 10px;
+    filter: invert(1);
+}
+
+.icon-white:hover {
+    filter: brightness(0%);
+}
+
+.social-icon {
+    width: 80px;
+    padding-top: 40px;
+    filter: invert(1);
 }
 
 /*-------buttons ----------*/
@@ -272,6 +303,7 @@ h1 {
 
 .product-picture {
     width: 140%;
+    overflow: hidden;
 }
 
 .half {
@@ -317,9 +349,21 @@ h1 {
 .special-offer {
     position: absolute;
     top: 400px;
-    left: 180px;
+    left: 50px;
     color: white;
     width: 350px;
+}
+
+.name {
+    position: absolute;
+    font-size: 3rem;
+    left: 50px;
+    top: 650px;
+    letter-spacing: 2.7rem;
+    font-weight: 100;
+    z-index: 1;
+    color: white;
+    font-family: "poppins";
 }
 
 /*-------Admin ----------*/
@@ -331,7 +375,28 @@ h1 {
     width: 100%;
 }
 
+.saveInput {
+    width: 10px !important;
+    margin-right: 10px;
+}
+
+label {
+    font-size: 0.8rem;
+}
+
+.impressum {
+    width: 50%;
+    text-align: right;
+}
+
 /*-------responsive ----------*/
+
+@media (max-width: 1400px) {
+    .special-offer {
+        top: 350px;
+        width: 350px;
+    }
+}
 
 @media (max-width: 850px) {
     .col-50 {
@@ -347,19 +412,74 @@ h1 {
     .teaser-picture {
         align-items: stretch;
     }
+    .special-offer {
+        top: 250px;
+        left: 50px;
+        width: 350px;
+    }
+
+    .name {
+        font-size: 1.8rem;
+        top: 520px;
+        left: 60px;
+    }
+
+    nav {
+        left: 50px;
+        width: 85%;
+    }
 }
-/*
-<div className="grid-container">
-                                                <div className="col-50">
-                                                    <h1>50</h1>
-                                                </div>
-                                                <div className="col-50">
-                                                    <div className="col-50">
-                                                        <h1>50</h1>
-                                                    </div>
-                                                    <div className="col-50">
-                                                        <h1>50</h1>
-                                                    </div>
-                                                </div>
-                                            </div>
-*/
+
+@media (max-width: 650px) {
+    .special-offer {
+        top: 120px;
+        left: 50px;
+        width: 70%;
+    }
+    .teaser-text {
+        padding: 20px;
+    }
+    .name {
+        display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    .special-offer {
+        top: 90px;
+        left: 20px;
+    }
+    .col-50-column {
+        display: block;
+    }
+    .half {
+        width: 80%;
+    }
+    .product-text {
+        top: 20px;
+        left: 20px;
+    }
+    .half p {
+        display: none;
+    }
+    nav {
+        left: 15px;
+        width: 90%;
+    }
+    .popup {
+        width: 80px;
+    }
+}
+
+@media (max-width: 380px) {
+    .special-offer p {
+        display: none;
+    }
+    .special-offer br {
+        display: none;
+    }
+    .special-offer h2 {
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+}

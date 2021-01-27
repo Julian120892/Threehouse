@@ -9,7 +9,7 @@ import Paypal from "./Paypal";
 import { Link } from "react-router-dom";
 
 const Logo = styled.div`
-    color: white;
+    color: #f7f4f2;
 `;
 
 const Buildingblock = styled.div`
@@ -56,8 +56,15 @@ const Basket = styled.div`
     position: absolute;
     right: 0;
     top: 0;
-    width: 530px;
-    z-index: 100;
+    width: 400px;
+    z-index: 900;
+    border: 3px solid #292929;
+    @media (max-width: 450px) {
+        width: 300px;
+    }
+    @media (max-width: 380px) {
+        width: 250px;
+    }
 `;
 
 const LoginComp = styled.div`
@@ -67,8 +74,15 @@ const LoginComp = styled.div`
     position: absolute;
     right: 0;
     top: 0;
-    width: 530px;
-    z-index: 150;
+    width: 400px;
+    z-index: 950;
+    border: 3px solid #292929;
+    @media (max-width: 450px) {
+        width: 300px;
+    }
+    @media (max-width: 380px) {
+        width: 250px;
+    }
 `;
 
 export default class App extends Component {
@@ -141,7 +155,7 @@ export default class App extends Component {
                                 <nav>
                                     <Buildingblock>
                                         <Logo>
-                                            <h1>TREE</h1>
+                                            <h1>THREEHOUSE</h1>
                                             <p>
                                                 Fragrance Trees for nature
                                                 lovers
@@ -151,7 +165,7 @@ export default class App extends Component {
                                             <img
                                                 src="/img/my.png"
                                                 alt="Your Profile"
-                                                className="icon-black"
+                                                className="icon-white"
                                                 onClick={() => {
                                                     this.toggleLogin();
                                                 }}
@@ -176,7 +190,7 @@ export default class App extends Component {
                                             )}
 
                                             <img
-                                                className="icon-black"
+                                                className="icon-white"
                                                 src="/img/shopping.png"
                                                 alt="Shopping Cart"
                                                 onClick={() => {
@@ -211,17 +225,21 @@ export default class App extends Component {
                                 <header>
                                     <Buildingblock>
                                         <div className="grid-container">
+                                            <div className="name">
+                                                THREEHOUSE.
+                                            </div>
                                             <div className="col-50">
                                                 {this.state.product[0] && (
                                                     <>
                                                         <img
                                                             width="100%"
                                                             height="100%"
-                                                            src={
-                                                                this.state
-                                                                    .product[2]
-                                                                    .product_picture
-                                                            }
+                                                            // src={
+                                                            //     this.state
+                                                            //         .product[2]
+                                                            //         .product_picture
+                                                            // }
+                                                            src="/img/tree.jpg"
                                                         />
                                                         <div className="special-offer">
                                                             <h1>
@@ -394,8 +412,27 @@ export default class App extends Component {
                                 </main>
                                 <footer>
                                     <Footer>
-                                        <h1>footer</h1>
-                                        <a>Impressum</a>
+                                        <div className="grid-container">
+                                            <div
+                                                className="col-50"
+                                                height="600px"
+                                            >
+                                                <h1>Threehouse.</h1>
+                                                <p>Germany, 2020</p>
+                                            </div>
+                                            <div className="impressum">
+                                                <a>
+                                                    <h5>Impressum</h5>
+                                                </a>
+                                                <div>
+                                                    <img
+                                                        src="/img/social.png"
+                                                        alt="social"
+                                                        className="social-icon"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </Footer>
                                 </footer>
                             </>
@@ -406,11 +443,10 @@ export default class App extends Component {
                     <Route exact path="/pay" render={() => <Paypal />} />
                     <Route
                         exact
-                        path="/thanks"
+                        path="/more"
                         render={() => (
                             <>
-                                <h1>Thank you for your order</h1>
-                                <Link to="/">continue shopping</Link>
+                                <h1>more infos</h1>
                             </>
                         )}
                     />

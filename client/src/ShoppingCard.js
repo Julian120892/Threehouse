@@ -19,11 +19,21 @@ export default class ShoppingCard extends Component {
         this.state = {
             displayItems: [],
             price: 0,
+            home: true,
         };
     }
 
     componentDidMount() {
         this.getProducts();
+        this.getLocation();
+    }
+
+    getLocation() {
+        if (window.location.pathname == "/checkout") {
+            this.setState({
+                home: false,
+            });
+        }
     }
 
     getProducts() {
@@ -92,16 +102,8 @@ export default class ShoppingCard extends Component {
 
                             <br />
                             <h4>{d.product_price}</h4>
-                            {/* <h5>{d.id}</h5> */}
-                            {/* <h5>{index}</h5> */}
                         </div>
                         <div>
-                            {/* <p
-                                id={index}
-                                onClick={(e) => this.deleteFromShoppingCart(e)}
-                            >
-                                delete Item
-                            </p> */}
                             <img
                                 id={index}
                                 onClick={(e) => this.deleteFromShoppingCart(e)}
@@ -114,14 +116,16 @@ export default class ShoppingCard extends Component {
                 ))}
 
                 <div className="sum">
-                    <button className="btn-1">Check Out</button>
-
+                    {this.state.home && (
+                        <Link to="/checkout">
+                            <button className="btn-1">Check Out</button>
+                        </Link>
+                    )}
                     <div>
                         <h5>Summe</h5>
                         <h1>{this.state.price}€</h1>
                     </div>
                 </div>
-                <Link to="/checkout"></Link>
             </>
         );
     }

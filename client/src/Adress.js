@@ -7,8 +7,6 @@ const Container = styled.div`
     justify-content: strech;
     align-items: strech;
     flex-direction: column;
-    background: #f5f0ed;
-    border: 1px solid grey;
     margin: 5px;
 `;
 
@@ -128,11 +126,12 @@ export default class Adress extends Component {
         if (this.state.userdata) {
             return (
                 <Container>
-                    <h1>adress</h1>
+                    <br />
+                    <br />
+
+                    <h1>Your Shipping Adress</h1>
                     <div className="container">
                         <div className="registration">
-                            <h2>Shipping Adress</h2>
-
                             <input
                                 onChange={(e) => this.handleChange(e)}
                                 name="name"
@@ -184,19 +183,21 @@ export default class Adress extends Component {
                                 defaultValue={this.state.userdata.adress}
                                 required
                             />
-
-                            <input
-                                onChange={() => {
-                                    this.saveToServer();
-                                }}
-                                type="checkbox"
-                                id="addToServer"
-                                name="addToServer"
-                                value="add"
-                            />
-                            <label htmlFor="addToServer">
-                                Save for next purchase?
-                            </label>
+                            <div className="col-100">
+                                <input
+                                    onChange={() => {
+                                        this.saveToServer();
+                                    }}
+                                    type="checkbox"
+                                    id="addToServer"
+                                    name="addToServer"
+                                    value="add"
+                                    className="saveInput"
+                                />
+                                <label htmlFor="addToServer">
+                                    Save for next purchase?
+                                </label>
+                            </div>
 
                             {this.state.error && (
                                 <span>
@@ -214,10 +215,9 @@ export default class Adress extends Component {
         } else {
             return (
                 <Container>
-                    <h1>adress</h1>
                     <div className="container">
                         <div className="registration">
-                            <h2>Shipping Adress</h2>
+                            <h1>Your Shipping Adress</h1>
 
                             <input
                                 onChange={(e) => this.handleChange(e)}
