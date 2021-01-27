@@ -18,7 +18,7 @@ const CheckoutPage = styled.div`
     flex-direction: column;
     width: 80%;
     align-items: center;
-    background-color: white;
+    background-color: #f5f0ed;
     color: black;
     margin: 50px;
     margin-left: auto;

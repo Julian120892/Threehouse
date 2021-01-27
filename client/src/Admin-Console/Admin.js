@@ -3,7 +3,7 @@ import axios from "../axios";
 import styled from "styled-components";
 
 const Container = styled.div`
-    background: white;
+    background: f5f0ed;
     display: flex;
     justify-content: center;
     flex-direction: column;

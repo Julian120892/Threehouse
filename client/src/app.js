@@ -50,7 +50,7 @@ const Item = styled.div`
 `;
 
 const Basket = styled.div`
-    background: #d4c6bd;
+    background: #f5f0ed;
     margin: 10px;
     padding: 10px;
     position: absolute;
@@ -58,7 +58,7 @@ const Basket = styled.div`
     top: 0;
     width: 400px;
     z-index: 900;
-    border: 3px solid #292929;
+    // border: 3px solid #292929;
     @media (max-width: 450px) {
         width: 300px;
     }
@@ -68,7 +68,7 @@ const Basket = styled.div`
 `;
 
 const LoginComp = styled.div`
-    background: #d4c6bd;
+    background: #f5f0ed;
     margin: 10px;
     padding: 10px;
     position: absolute;
@@ -76,7 +76,7 @@ const LoginComp = styled.div`
     top: 0;
     width: 400px;
     z-index: 950;
-    border: 3px solid #292929;
+    // border: 3px solid #292929;
     @media (max-width: 450px) {
         width: 300px;
     }
@@ -242,6 +242,9 @@ export default class App extends Component {
                                                             src="/img/tree.jpg"
                                                         />
                                                         <div className="special-offer">
+                                                            <h3>
+                                                                Special Offer:
+                                                            </h3>
                                                             <h1>
                                                                 {
                                                                     this.state
@@ -379,8 +382,7 @@ export default class App extends Component {
                                                                         }
                                                                     </p>
                                                                     <br />
-                                                                    <br />
-                                                                    <br />
+
                                                                     <br />
                                                                     <button
                                                                         className="btn-1"

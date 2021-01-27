@@ -428,6 +428,10 @@ label {
         left: 50px;
         width: 85%;
     }
+    .impressum {
+        width: 10%;
+        text-align: left;
+    }
 }
 
 @media (max-width: 650px) {
