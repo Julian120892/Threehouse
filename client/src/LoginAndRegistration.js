@@ -60,7 +60,7 @@ export default class LoginAndRegistration extends Component {
             return (
                 <>
                     <h1>You are logged in now.</h1>
-                    <button className="btn-1" onClick={() => this.logout()}>
+                    <button className="btn-2" onClick={() => this.logout()}>
                         LOG OUT
                     </button>
                 </>

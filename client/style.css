@@ -137,6 +137,7 @@ button {
     margin-right: 5px;
     margin-bottom: 5px;
 }
+
 button:hover {
     background-color: lightgrey;
     color: grey;
@@ -155,6 +156,14 @@ button:hover {
     background-color: whitesmoke;
     color: grey;
     border: 2.5px solid whitesmoke;
+}
+
+.btn-2 {
+    background-color: #d4c6bd;
+    border-radius: 3px;
+    padding: 10px 40px;
+    font-size: 0.7rem;
+    color: whitesmoke;
 }
 
 .btn-plus {

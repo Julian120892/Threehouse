@@ -60,7 +60,7 @@ export default class Login extends Component {
                         <span>Something went wrong, please try again.</span>
                     )}
                     <button
-                        className="btn-1"
+                        className="btn-2"
                         onClick={() => this.handleClick()}
                     >
                         submit

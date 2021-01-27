@@ -71,7 +71,7 @@ export default class Registration extends Component {
                     )}
 
                     <button
-                        className="btn-1"
+                        className="btn-2"
                         onClick={() => this.handleClick()}
                     >
                         submit
