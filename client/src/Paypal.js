@@ -31,9 +31,10 @@ const CheckoutPage = styled.div`
 let secrets;
 if (process.env.NODE_ENV == "production") {
     secrets = process.env; // in prod the secrets are environment variables
-} else {
-    secrets = require("/server/secrets.json"); // in dev they are in secrets.json which is listed in .gitignore
 }
+// else {
+//     secrets = require("/server/secrets.json"); // in dev they are in secrets.json which is listed in .gitignore
+// }
 
 export default class Paypal extends Component {
     constructor(props) {
