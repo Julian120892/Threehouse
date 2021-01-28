@@ -398,6 +398,10 @@ label {
     text-align: right;
 }
 
+.admin-name {
+    color: white;
+}
+
 /*-------responsive ----------*/
 
 @media (max-width: 1400px) {

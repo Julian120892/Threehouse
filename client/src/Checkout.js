@@ -99,7 +99,7 @@ export default class Checkout extends Component {
                     <nav>
                         <Buildingblock>
                             <Logo>
-                                <h1>THREEHOUSE</h1>
+                                <h1>THR3EHOUSE</h1>
                             </Logo>
                             <Link to="/">
                                 <p className="link">back to the Shop</p>

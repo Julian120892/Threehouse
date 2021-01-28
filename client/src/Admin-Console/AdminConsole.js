@@ -80,7 +80,7 @@ export default class AdminConsole extends Component {
     render() {
         return (
             <>
-                <h1> - Admin Console</h1>
+                <h1 className="admin-name"> THR3EHOUSE - Admin Console</h1>
                 <Container>
                     <Itemhalf>
                         <Admin updateProductList={this.updateProductList} />
