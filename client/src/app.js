@@ -394,10 +394,7 @@ export default class App extends Component {
                                                                             )
                                                                         }
                                                                         id={
-                                                                            this
-                                                                                .state
-                                                                                .product[2]
-                                                                                .id
+                                                                            d.id
                                                                         }
                                                                     >
                                                                         Add
