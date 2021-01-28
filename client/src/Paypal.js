@@ -28,14 +28,6 @@ const CheckoutPage = styled.div`
     margin-top: 120px;
 `;
 
-let secrets;
-if (process.env.NODE_ENV == "production") {
-    secrets = process.env; // in prod the secrets are environment variables
-}
-// else {
-//     secrets = require("/server/secrets.json"); // in dev they are in secrets.json which is listed in .gitignore
-// }
-
 export default class Paypal extends Component {
     constructor(props) {
         super(props);
@@ -101,7 +93,8 @@ export default class Paypal extends Component {
                             this.changePaymentStatus();
                         }}
                         options={{
-                            clientId: secrets.PAYPAL_KEY,
+                            clientId:
+                                "ATIXvu63_nwOkoEcVXeMsDyumk4rCHM0TqNK_9PKS7zg3OFjdolV1vVSTnoaGIVg4ukdS81c3A5LzFB6",
                             currency: "EUR",
                         }}
                     />

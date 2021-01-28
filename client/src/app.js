@@ -39,16 +39,6 @@ const Footer = styled.div`
     color: ghostwhite;
 `;
 
-const Item = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    background: #f5f0ed;
-    min-width: 200px;
-    max-height: 600px;
-    positon: relative;
-`;
-
 const Basket = styled.div`
     background: #f5f0ed;
     margin: 10px;
