@@ -7,7 +7,6 @@ It is a Web store for fragrance trees in cars, which is filled via a database.
 
 ### Built With
 - React
-- Redux
 
 ## Features
 
